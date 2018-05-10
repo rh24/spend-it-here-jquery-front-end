@@ -27,6 +27,7 @@
             <%= label :crypto_ids, "Check all that apply:" %><br />
             <%= business.collection_check_boxes :crypto_ids, Crypto.all, :id, :name,
             { item_wrapper_class: 'checkbox_container'} %>
+            
           <% end %>
       </div><br />
     <% end %>
