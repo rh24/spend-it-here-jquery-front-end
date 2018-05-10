@@ -32,7 +32,7 @@
             <% #javascript_include_tag "coins" %>
             <!-- <input type="text" list="coins" multiple> -->
             <datalist id="coins">
-              <% Crypto.all.each do |crypto| %>
+              <% Crypto.order_by_name.each do |crypto| %>
                 <option value="<%= crypto.name %>"></option>
               <% end %>
             </datalist>
