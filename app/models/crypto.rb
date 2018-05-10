@@ -7,7 +7,7 @@ class Crypto < ApplicationRecord
   # Or have a typing text_field that provides suggestions for matches.
   # I don't want false data and coins that don't exist to be created, so I felt it was safer to user data from a scraper.
 
-  # def self.order_by_name
-  #   order(name: "asc")
-  # end
+  def self.order_by_name
+    order(name: "asc")
+  end
 end

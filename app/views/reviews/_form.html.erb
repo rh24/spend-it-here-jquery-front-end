@@ -25,9 +25,16 @@
             <%= business.check_box :discount_offered, :checked => false %>
             <%= label :discount_offered, "Discount offered for crypto payments?" %><br /><br />
             <%= label :crypto_ids, "Check all that apply:" %><br />
-            <%= business.collection_check_boxes :crypto_ids, Crypto.all, :id, :name,
-            { item_wrapper_class: 'checkbox_container'} %>
-            
+            <!-- <%= business.collection_check_boxes :crypto_ids, Crypto.all, :id, :name,
+            { item_wrapper_class: 'checkbox_container'} %> -->
+            <% # add datalist html %>
+            <% #javascript_include_tag "coins" %>
+            <input type="text" list="coins">
+            <datalist id="crypto-name">
+              <%= Crypto.all.each do |crypto| %>
+                <option value="<%= crypto.name %>"></option>
+              <% end %>
+            </datalist>
           <% end %>
       </div><br />
     <% end %>
@@ -43,7 +50,7 @@
     </div>
     <div>
       <label>Which cryptocurrency did you pay in?</label>
-      <%= f.collection_select :crypto_id, Crypto.all, :id, :name, include_blank: true %><br />
+      <%= f.collection_select :crypto_id, Crypto.order_by_name, :id, :name, include_blank: true %><br />
     </div>
     <div>
       <%= f.check_box :would_recommend, :checked => true %>
