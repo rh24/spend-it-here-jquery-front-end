@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :omniauthable, :omniauth_providers => [:google_oath2, :github]
 
   has_many :reviews
+  has_many :comments
 
   # def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
   #   data = access_token.info
