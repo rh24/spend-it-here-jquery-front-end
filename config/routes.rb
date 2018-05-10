@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :reviews
   end
   resources :reviews
+  # resources :cryptos
+  # I probably don't need the above resource if I'm hitting CMC's API
+  
   devise_for :users, controllers: {  omniauth_callbacks: 'users/omniauth_callbacks' }
   get '/users/:id' => 'users#show', as: 'user'
 
