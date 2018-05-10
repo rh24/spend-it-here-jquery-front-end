@@ -28,10 +28,11 @@
             <!-- <%= business.collection_check_boxes :crypto_ids, Crypto.all, :id, :name,
             { item_wrapper_class: 'checkbox_container'} %> -->
             <% # add datalist html %>
+            <%= business.text_field :crypto_ids, list: "coins" %>
             <% #javascript_include_tag "coins" %>
-            <input type="text" list="coins">
-            <datalist id="crypto-name">
-              <%= Crypto.all.each do |crypto| %>
+            <!-- <input type="text" list="coins" multiple> -->
+            <datalist id="coins">
+              <% Crypto.all.each do |crypto| %>
                 <option value="<%= crypto.name %>"></option>
               <% end %>
             </datalist>
