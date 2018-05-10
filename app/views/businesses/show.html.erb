@@ -5,6 +5,7 @@
 </div>
 
 <h1><%= @business.name %></h1>
+<h3>Review count: <%= @business.review_count %></h3>
 <h2><%= link_to "[Leave a review]", new_biz_review_path(@business, @review) %></h2>
 
 <div class="">

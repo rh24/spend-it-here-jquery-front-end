@@ -33,6 +33,10 @@ class Business < ApplicationRecord
     #   where(discount_offered: true)
     # end
 
+  def review_count
+    reviews.count
+  end
+
   def self.order_by_name
     order(name: "asc")
   end
