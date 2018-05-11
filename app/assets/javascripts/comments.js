@@ -8,6 +8,9 @@ function Comment(content) {
 }
 
 function createComment() {
-  let review = e.target
-  $.fetch(`/reviews/${}`)
+  // let review = $('#review-')
+  $('#comment-btn').on('click', function () {
+    $('#comment-section').append(`<input type="text" placeholder="Your comment here..."></input>`)
+  })
+  // $.fetch(`/reviews/${}`)
 }

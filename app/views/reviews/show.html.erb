@@ -1,6 +1,6 @@
 <h2><%= @review.title %></h2>
 
-<div>
+<div id="review-<%= @review.id %>">
   <%= @review.comment %><br /><br />
   <%= display_rating @review %><br />
 
@@ -15,7 +15,7 @@
 </div><br />
 
 <div id="comment-section">
-
+  <button id="comment-btn">Add Comment</button>
 </div>
 
 <%= display_edit_link @review %> |
