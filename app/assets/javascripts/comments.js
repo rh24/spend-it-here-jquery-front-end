@@ -25,13 +25,20 @@ $(document).ready(function () {
 // If you do not add e.preventDefault(), your js will not work!!
 
 function attachCommentListeners() {
-  $('#comment-link').on('click', function (e) {
+  $('#load-comments').on('click', function (e) {
     e.preventDefault();
     alert("you clicked me!");
   })
 
   $('#comment-btn').on('click', function (e) {
     e.preventDefault();
-    $('#comment-section').append("Hello")
+    let $commentArea = document.getElementById('create-comment')
+    if (!$commentArea) {
+      $('#comment-section').append(`<textarea id="create-comment" placeholder="Your comment here..."></textarea>`)
+    }
   })
+}
+
+function createComment() {
+  $('#create-comment')
 }
