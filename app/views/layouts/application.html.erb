@@ -2,10 +2,9 @@
 <html>
   <head>
     <title>SpendItHere</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <%= render 'layouts/navbar' %>
@@ -13,7 +12,7 @@
   <% if flash[:notice] %>
     <%= flash[:notice] %>
   <% end %>
-  
+
   <body>
 
     <%= yield %>
