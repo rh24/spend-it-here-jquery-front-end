@@ -9,17 +9,6 @@ function Comment(content, userId, reviewId) {
   commentId++;
 }
 
-// function createComment() {
-//   // let review = $('#review-')
-//   $('#comment-btn').on('click', function () {
-//     // $('#comment-section').append("Hello")
-//     alert("you clicked add comment!!!")
-//
-//     // (`<input type="text" placeholder="Your comment here..."></input>`)
-//   })
-//   // $.fetch(`/reviews/${}`)
-// }
-
 $(document).ready(function () {
   attachCommentListeners();
 })
@@ -36,7 +25,8 @@ function attachCommentListeners() {
     e.preventDefault();
     let $commentArea = document.getElementById('create-comment')
     if (!$commentArea) {
-      $('#comment-section').append(`<form><textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea><input type="submit" value="Submit"></input></form>`)
+      $('#comment-section').append(`<form id="comment-form"><textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea><input type="submit" value="Submit"></input></form>`)
+      $('#comment-btn').hide();
     }
 
     // if (!$commentArea) {
@@ -55,10 +45,30 @@ function attachCommentListeners() {
     // }
   });
 
-  $('form').on('submit', function (e) {
-    // alert("Hello")
+  $('#comment-form').on('submit', function (e) {
+    alert("Hello")
     e.preventDefault();
-    createComment();
+    // createComment();
+    let values = $(this).serialize();
+    debugger;
+    let businessId = $('#comment-section').data("business-id");
+    let reviewId = $('#comment-section').data("review-id");
+    let content = $('.content').val();
+    let userId = $('.user').data("id");
+
+    let comment = new Comment (content, userId, reviewId);
+
+    // $.ajax({
+    //   method: 'post',
+    //   url: `businesses/${businessId}/reviews/${reviewId}/comments`,
+    //   data: { content: content, user_id: userId, review_id: reviewId }
+    // }).done(function (data) {
+    //   $('#comment-section').append(`
+    //     <br><div id="comment-${comment.id}">
+    //     Test
+    //     </div><br>
+    //   `)
+    // });
   });
 }
 
@@ -67,7 +77,7 @@ function createComment() {
   let reviewId = $('#comment-section').data("review-id");
   let content = $('.content').val();
   let userId = $('.user').data("id");
-  // debugger;
+  debugger;
 
   let comment = new Comment (content, userId, reviewId);
 
