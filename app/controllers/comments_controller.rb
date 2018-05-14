@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_review
+  before_action :set_review, :set_business
 
   def new
     @comment = Comment.new
@@ -14,6 +14,10 @@ class CommentsController < ApplicationController
 
   end
 
+  def index
+    
+  end
+
   private
 
   def comment_params
@@ -22,5 +26,9 @@ class CommentsController < ApplicationController
 
   def set_review
     @review = Review.find_by(id: params[:review_id])
+  end
+
+  def set_business
+    @business = Business.find_by(id: @review.business_id)
   end
 end
