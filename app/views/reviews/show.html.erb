@@ -1,7 +1,7 @@
 <h2><%= @review.title %></h2>
 
 <div id="review-<%= @review.id %>">
-  <%= @review.comment %><br /><br />
+  <%= @review.content %><br /><br />
   <%= display_rating @review %><br />
 
   <% # DRY code. Separate if statement below into helper? %>

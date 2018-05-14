@@ -6,7 +6,7 @@
       <li>
         <h2><%= link_to "#{r.business.name}", biz_path(r.business)%></h2>
         <h4><%= link_to "#{r.title}", biz_review_path(r.business, r) %></h4>
-        <%= r.comment %>
+        <%= r.content %>
         <% if r.would_recommend %>
           <p><%= "#{display_email r} recommends this business. #{display_rating r}" %></p>
         <% else %>

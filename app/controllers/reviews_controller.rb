@@ -72,7 +72,7 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(
       :title,
-      :comment,
+      :content,
       :rating,
       :would_recommend,
       :crypto_id,

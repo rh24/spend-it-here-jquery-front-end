@@ -29,11 +29,11 @@ function attachCommentListeners() {
 
   $('#comment-btn').on('click', function (e) {
     e.preventDefault();
-    // let $commentArea = document.getElementById('create-comment')
-    // let businessId = $('#comment-section').data("business-id");
-    // let reviewId = $('#comment-section').data("review-id");
-    // // let content = $('.content').val();
-    // let userId = $('.user').data("id");
+    let $commentArea = document.getElementById('create-comment')
+    let businessId = $('#comment-section').data("business-id");
+    let reviewId = $('#comment-section').data("review-id");
+    // let content = $('.content').val();
+    let userId = $('.user').data("id");
     if (!$commentArea) {
       $('#comment-section').append(`<form id="comment-form">
       <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
@@ -57,6 +57,7 @@ function attachCommentListeners() {
       let posting = $.post(`/businesses/${businessId}/reviews/${reviewId}/comments`, values)
       // debugger;
       posting.done(function (data) {
+        debugger;
         let newComment = new Comment (data)
         let commentHTML = newComment.formatComment();
       debugger;
