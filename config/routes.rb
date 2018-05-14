@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     end
   end
   resources :reviews
+  resources :reviews do
+    resources :comments
+  end
   # resources :cryptos
   # I probably don't need the above resource if I'm hitting CMC's API
 

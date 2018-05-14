@@ -7,22 +7,24 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    # if @comment.save
+    redirect to comment_path(@comment) if @comment.save
   end
 
   def show
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @comment }
-    end
+    # respond_to do |format|
+    #   format.html { render :show }
+    #   format.json { render json: @comment }
+    # end
+    render json: @comment, status: 200
   end
 
   def index
     @comments = @review.comments
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render json: @comments }
-    end
+    # respond_to do |format|
+    #   format.html { render :index }
+    #   format.json { render json: @comments }
+    # end
+    render json: @comments, status: 200
   end
 
   private

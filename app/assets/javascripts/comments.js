@@ -22,9 +22,25 @@ let reviewId = $('#comment-section').data("review-id");
 let userId = $('.user').data("id");
 
 function attachCommentListeners() {
+
+  let $commentArea = document.getElementById('create-comment')
+  let businessId = $('#comment-section').data("business-id");
+  let reviewId = $('#comment-section').data("review-id");
+  // let content = $('.content').val();
+  let userId = $('.user').data("id");
+
   $('#load-comments').on('click', function (e) {
     e.preventDefault();
-    alert("you clicked me!");
+    $.get(`/reviews/${reviewId}/comments`, function (data) {
+      // debugger;
+      let commentJson = data[0]
+      // let comments = data.serialize()
+      $('#comment-section').append(`
+        <div id="comment-${commentJson.id}">
+          <p>${commentJson.content}</p>
+        </div>
+      `)
+    })
   });
 
   $('#comment-btn').on('click', function (e) {
@@ -54,13 +70,14 @@ function attachCommentListeners() {
       e.preventDefault();
       // createComment();
       let values = $(this).serialize();
-      let posting = $.post(`/businesses/${businessId}/reviews/${reviewId}/comments`, values)
+      // let posting = $.post(`/businesses/${businessId}/reviews/${reviewId}/comments`, values)
+      let posting = $.post(`/comments`, values)
       // debugger;
       posting.done(function (data) {
         debugger;
-        let newComment = new Comment (data)
+        let newComment = new Comment (data);
         let commentHTML = newComment.formatComment();
-      debugger;
+      // debugger;
       })
       // let comment = new Comment (content, userId, reviewId);
 
@@ -79,13 +96,13 @@ function attachCommentListeners() {
   });
 }
 
-newComment.prototype.formatComment = function () {
-  let user = $.get(`/businesses/${businessId}/reviews/${reviewId}`, resp)
-  let html = `
-  <li>${this.content}</li>
-  <li>posted by: ${this.userId}</li>
-  `
-}
+// newComment.prototype.formatComment = function () {
+//   let user = $.get(`/businesses/${businessId}/reviews/${reviewId}`, resp)
+//   let html = `
+//   <li>${this.content}</li>
+//   <li>posted by: ${this.userId}</li>
+//   `
+// }
 
 function createComment() {
   let businessId = $('#comment-section').data("business-id");
