@@ -42,7 +42,15 @@ class ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.all if !params[:biz_id]
+    if !params[:biz_id]
+      @reviews = Review.all
+    else
+      @reviews = @business.reviews
+    end
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @reviews }
+    end
   end
 
   def destroy
