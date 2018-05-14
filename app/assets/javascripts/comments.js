@@ -34,7 +34,7 @@ function attachCommentListeners() {
     e.preventDefault();
     let $commentArea = document.getElementById('create-comment')
     if (!$commentArea) {
-      $('#comment-section').append(`<textarea id="create-comment" placeholder="Your comment here..."></textarea><button id="submit-comment">Submit</button>`)
+      $('#comment-section').append(`<textarea id="create-comment" placeholder="Your comment here..."></textarea><a href="#" id="submit-comment">Submit</a>`)
     }
     // } else if ($commentArea.innerHTML !== "") {
     //   // debugger;
@@ -45,20 +45,21 @@ function attachCommentListeners() {
   });
 
   $('#submit-comment').on('click', function (e) {
-    debugger;
+    // alert("Hello")
     e.preventDefault();
-    // alert("hello!");
     createComment();
   });
 }
 
 function createComment() {
-  let reviewId = $('#comment-section').data("id")
-  let content = $('.content').val()
-  let userId = $('.user').data("id")
+  let businessId = $('#comment-section').data("business-id");
+  let reviewId = $('#comment-section').data("review-id");
+  let content = $('.content').val();
+  let userId = $('.user').data("id");
+  // debugger;
   $.ajax({
     method: 'post',
-    url: `/reviews/${reviewId}/comments`,
+    url: `businesses/${businessId}/reviews/${reviewId}/comments`,
     data: { content: content }
   })
   $('#comment-section').append(`<br><div id="comment-${id}"`)
