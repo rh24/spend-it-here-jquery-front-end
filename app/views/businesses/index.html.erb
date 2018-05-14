@@ -13,10 +13,13 @@
 </div>
 
 <div class="filter-businesses">
+  <label>Filter by crypto: </label>
+  <input type="text" list="coins">
   <datalist id="coins" multiple>
     <% Crypto.order_by_name.each do |crypto| %>
       <option value="<%= crypto.name %>"></option>
       <% # JS display on page, then add another field %>
     <% end %>
   </datalist>
+  <input type="submit" value="Search">
 </div>
