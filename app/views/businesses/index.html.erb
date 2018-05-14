@@ -11,3 +11,12 @@
     <% end %>
   </ul>
 </div>
+
+<div class="filter-businesses">
+  <datalist id="coins" multiple>
+    <% Crypto.order_by_name.each do |crypto| %>
+      <option value="<%= crypto.name %>"></option>
+      <% # JS display on page, then add another field %>
+    <% end %>
+  </datalist>
+</div>
