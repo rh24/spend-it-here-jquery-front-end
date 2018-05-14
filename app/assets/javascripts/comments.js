@@ -67,16 +67,19 @@ function attachCommentListeners() {
     //   // display comment on page
     //   alert("You're trying to submit a comment!")
     // }
-    $('#comment-form').on('submit', function (e) {
-      // alert("Hello")
+    $('#comment-form').submit(function (e) {
       e.preventDefault();
       // createComment();
       let values = $(this).serialize();
-      // let posting = $.post(`/businesses/${businessId}/reviews/${reviewId}/comments`, values)
-      let posting = $.post(`/comments`, values)
+      let posting = $.ajax({
+        url: `/businesses/${businessId}/reviews/${reviewId}/comments`,
+        method: "POST",
+        dataType: "json",
+        data: values
+      })
       // debugger;
       posting.done(function (data) {
-        debugger;
+        // debugger;
         let newComment = new Comment (data);
         let commentHTML = newComment.formatComment();
       // debugger;
@@ -98,13 +101,18 @@ function attachCommentListeners() {
   });
 }
 
-// newComment.prototype.formatComment = function () {
-//   let user = $.get(`/businesses/${businessId}/reviews/${reviewId}`, resp)
-//   let html = `
-//   <li>${this.content}</li>
-//   <li>posted by: ${this.userId}</li>
-//   `
-// }
+newComment.prototype.formatComment = function () {
+  let userId = $.get(`/businesses/${businessId}/reviews/${reviewId}`, function (resp) {
+    return resp["user_id"];
+  })
+  let user = $.get(`/users/${userId}`, function (resp) {
+    return resp["username"];
+  })
+  let html = `
+  <li>${this.content}</li>
+  <li>posted by: ${user}</li>
+  `
+}
 
 function createComment() {
   let businessId = $('#comment-section').data("business-id");
