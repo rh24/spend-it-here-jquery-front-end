@@ -9,31 +9,30 @@ function Comment(content, userId, reviewId) {
   id++;
 }
 
-Comment.prototype.formatComment = function () {
+Comment.prototype.loadAllComments = function () {
   let businessId = $('#comment-section').data("business-id");
   let reviewId = $('#comment-section').data("review-id");
-  let userId;
-  let user;
+  let user; // Need to grab username
   let html;
   let data = $.ajax({
     method: "GET",
     url: `/businesses/${businessId}/reviews/${reviewId}/comments.json`,
     dataType: "json"
   }).done(function (resp) {
-    debugger;
-    html = `
-    <li>${resp.content}</li>
-    <li>posted by: ${data["username"]}</li>
-    `
+    resp.forEach(function (el) {
+      user = $.get(`/users/${el["user_id"]}.json`, function (resp) {
+        debugger;
+        // user = resp["username"];
+      });
+      html = `
+      <div id="comment-${el.id}">
+      <li>${el.content}</li>
+      <li>posted by: ${el["user_id"]}</li>
+      </div>
+      `
+      $('#comment-section').append(html);
+    })
   })
-  // $.get(`/users/${userId}`, function (resp) {
-  //   // user = resp["username"];
-  // })
-  // let html = `
-  // <li>${this.content}</li>
-  // <li>posted by: ${data["username"]}</li>
-  // `
-  return html;
 }
 
 $(document).ready(function () {
@@ -64,18 +63,7 @@ function attachCommentListeners() {
 
   $('#load-comments').on('click', function (e) {
     e.preventDefault();
-    $.get(`/reviews/${reviewId}/comments`, function (data) {
-    // data is JSON
-      for (let comment of data) {
-        // if ($(`#comment-${comment.id}`) === undefined) {
-          $('#comment-section').append(`
-            <div id="comment-${comment.id}">
-              <p>${comment.content}</p>
-            </div>
-          `)
-        // }
-      }
-    })
+    Comment.prototype.loadAllComments();
   });
 
   $('#comment-btn').on('click', function (e) {
