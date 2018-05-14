@@ -9,17 +9,50 @@ function Comment(content, userId, reviewId) {
   id++;
 }
 
+Comment.prototype.formatComment = function () {
+  let businessId = $('#comment-section').data("business-id");
+  let reviewId = $('#comment-section').data("review-id");
+  let userId;
+  let user;
+  let html;
+  let data = $.ajax({
+    method: "GET",
+    url: `/businesses/${businessId}/reviews/${reviewId}/comments.json`,
+    dataType: "json"
+  }).done(function (resp) {
+    debugger;
+    html = `
+    <li>${resp.content}</li>
+    <li>posted by: ${data["username"]}</li>
+    `
+  })
+  // $.get(`/users/${userId}`, function (resp) {
+  //   // user = resp["username"];
+  // })
+  // let html = `
+  // <li>${this.content}</li>
+  // <li>posted by: ${data["username"]}</li>
+  // `
+  return html;
+}
+
 $(document).ready(function () {
+  let $commentArea = document.getElementById('create-comment')
+  let businessId = $('#comment-section').data("business-id");
+  let reviewId = $('#comment-section').data("review-id");
+  // let content = $('.content').val();
+  let userId = $('.user').data("id");
+
   attachCommentListeners();
 })
 
 // If you do not add e.preventDefault(), your js will not work!!
 
-let $commentArea = document.getElementById('create-comment')
-let businessId = $('#comment-section').data("business-id");
-let reviewId = $('#comment-section').data("review-id");
-// let content = $('.content').val();
-let userId = $('.user').data("id");
+// let $commentArea = document.getElementById('create-comment')
+// let businessId = $('#comment-section').data("business-id");
+// let reviewId = $('#comment-section').data("review-id");
+// // let content = $('.content').val();
+// let userId = $('.user').data("id");
 
 function attachCommentListeners() {
 
@@ -82,9 +115,9 @@ function attachCommentListeners() {
         // debugger;
         let newComment = new Comment (data);
         let commentHTML = newComment.formatComment();
-      // debugger;
+
+        $('#comment-section').append(commentHTML);
       })
-      // let comment = new Comment (content, userId, reviewId);
 
       // $.ajax({
       //   method: 'post',
@@ -99,19 +132,6 @@ function attachCommentListeners() {
       // });
     });
   });
-}
-
-newComment.prototype.formatComment = function () {
-  let userId = $.get(`/businesses/${businessId}/reviews/${reviewId}`, function (resp) {
-    return resp["user_id"];
-  })
-  let user = $.get(`/users/${userId}`, function (resp) {
-    return resp["username"];
-  })
-  let html = `
-  <li>${this.content}</li>
-  <li>posted by: ${user}</li>
-  `
 }
 
 function createComment() {
