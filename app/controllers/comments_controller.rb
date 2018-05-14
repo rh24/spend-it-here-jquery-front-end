@@ -2,11 +2,12 @@ class CommentsController < ApplicationController
   before_action :set_review
 
   def new
-
+    @comment = Comment.new
   end
 
   def create
-
+    @comment = Comment.new(comment_params)
+    if @comment.save
   end
 
   def show

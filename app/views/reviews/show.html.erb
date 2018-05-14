@@ -16,7 +16,12 @@
 
 <button id="comment-btn">Add Comment</button>
 <a id="load-comments" href="#">Load Comments</a>
-<div id="comment-section">
+<div id="comment-section" data-id="<%= @review.id %>">
+  <div class="content">
+    <div class="user" data-id="<%= current_user.id %>">
+
+    </div>
+  </div>
 </div>
 
 <%= display_edit_link @review %> |

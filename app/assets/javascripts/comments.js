@@ -47,16 +47,19 @@ function attachCommentListeners() {
   $('#submit-comment').on('click', function (e) {
     debugger;
     e.preventDefault();
-    alert("hello!");
+    // alert("hello!");
     createComment();
   });
 }
 
 function createComment() {
-  // let id =
+  let reviewId = $('#comment-section').data("id")
+  let content = $('.content').val()
+  let userId = $('.user').data("id")
   $.ajax({
-    method: 'post'
-    
+    method: 'post',
+    url: `/reviews/${reviewId}/comments`,
+    data: { content: content }
   })
   $('#comment-section').append(`<br><div id="comment-${id}"`)
 }
