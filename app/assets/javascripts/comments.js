@@ -32,14 +32,16 @@ function attachCommentListeners() {
   $('#load-comments').on('click', function (e) {
     e.preventDefault();
     $.get(`/reviews/${reviewId}/comments`, function (data) {
-      // debugger;
-      let commentJson = data[0]
-      // let comments = data.serialize()
-      $('#comment-section').append(`
-        <div id="comment-${commentJson.id}">
-          <p>${commentJson.content}</p>
-        </div>
-      `)
+    // data is JSON
+      for (let comment of data) {
+        // if ($(`#comment-${comment.id}`) === undefined) {
+          $('#comment-section').append(`
+            <div id="comment-${comment.id}">
+              <p>${comment.content}</p>
+            </div>
+          `)
+        // }
+      }
     })
   });
 

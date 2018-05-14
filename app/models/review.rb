@@ -7,7 +7,7 @@ class Review < ApplicationRecord
   delegate :location, to: :business
 
   validates :title, presence: true
-  validates :comment, presence: true
+  validates :content, presence: true
   validates :rating, inclusion: { in: %w[5 4 3 2 1].map(&:to_i) }
 
   def businesses_attributes=(business_attributes)
