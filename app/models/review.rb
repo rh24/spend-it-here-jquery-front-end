@@ -2,6 +2,7 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :business
   belongs_to :crypto
+  has_many :comments
 
   delegate :location, to: :business
 
