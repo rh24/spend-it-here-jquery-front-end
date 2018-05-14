@@ -20,19 +20,18 @@ Comment.prototype.loadAllComments = function () {
     dataType: "json"
   }).done(function (resp) {
     resp.forEach(function (el) {
-      user = $.get(`/users/${el["user_id"]}.json`, function (resp) {
-        debugger;
-        // user = resp["username"];
+      $.get(`/users/${el["user_id"]}.json`, function (resp) {
+        user = resp["email"];
+        html = `
+        <div id="comment-${el.id}">
+        <li>${el.content}</li>
+        <p>posted by: ${user}</p>
+        </div><br>
+        `
+        $('#comment-section').append(html);
       });
-      html = `
-      <div id="comment-${el.id}">
-      <li>${el.content}</li>
-      <li>posted by: ${el["user_id"]}</li>
-      </div>
-      `
-      $('#comment-section').append(html);
-    })
-  })
+    });
+  });
 }
 
 $(document).ready(function () {
