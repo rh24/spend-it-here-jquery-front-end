@@ -28,17 +28,35 @@ function attachCommentListeners() {
   $('#load-comments').on('click', function (e) {
     e.preventDefault();
     alert("you clicked me!");
-  })
+  });
 
   $('#comment-btn').on('click', function (e) {
     e.preventDefault();
     let $commentArea = document.getElementById('create-comment')
     if (!$commentArea) {
-      $('#comment-section').append(`<textarea id="create-comment" placeholder="Your comment here..."></textarea>`)
+      $('#comment-section').append(`<textarea id="create-comment" placeholder="Your comment here..."></textarea><button id="submit-comment">Submit</button>`)
     }
-  })
+    // } else if ($commentArea.innerHTML !== "") {
+    //   // debugger;
+    //   // post comment to API
+    //   // display comment on page
+    //   alert("You're trying to submit a comment!")
+    // }
+  });
+
+  $('#submit-comment').on('click', function (e) {
+    debugger;
+    e.preventDefault();
+    alert("hello!");
+    createComment();
+  });
 }
 
 function createComment() {
-  $('#create-comment')
+  // let id =
+  $.ajax({
+    method: 'post'
+    
+  })
+  $('#comment-section').append(`<br><div id="comment-${id}"`)
 }
