@@ -7,7 +7,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    redirect to business_reviews_comment_path(@business, @business.reviews, @comment) if @comment.save
+    # binding.pry
+    redirect to business_reviews_comments_path if @comment.save
   end
 
   def show
@@ -35,9 +36,10 @@ class CommentsController < ApplicationController
 
   def set_review
     @review = Review.find_by(id: params[:review_id])
+    # raise params.inspect
   end
 
   def set_business
-    @business = Business.find_by(id: @review.business_id)
+    @business = Business.find_by(id: params[:biz_id])
   end
 end

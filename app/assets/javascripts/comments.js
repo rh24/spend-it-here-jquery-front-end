@@ -73,12 +73,16 @@ function attachCommentListeners() {
     // let content = $('.content').val();
     let userId = $('.user').data("id");
     if (!$commentArea) {
-      $('#comment-section').append(`<form id="comment-form">
-      <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
-      <input type="hidden" name="businessId" value="${businessId}">
-      <input type="hidden" name="reviewId" value="${reviewId}">
-      <input type="hidden" name="userId" value="${userId}">
-      <input type="submit" value="Submit"></input></form>`)
+      // $('#comment-section').append(`<form id="comment-form">
+      // <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
+      // <input type="hidden" name="businessId" value="${businessId}">
+      // <input type="hidden" name="reviewId" value="${reviewId}">
+      // <input type="hidden" name="userId" value="${userId}">
+      // <input type="submit" value="Submit"></input></form>`)
+      
+      // $('#comment-section').append(`<%= form_for([@review, @comment]) do |f| %>
+      // <%= f.text_area :content %>
+      // <%= f.submit %>`)
       $('#comment-btn').hide();
     }
     // } else if ($commentArea.innerHTML !== "") {
@@ -92,14 +96,15 @@ function attachCommentListeners() {
       // createComment();
       let values = $(this).serialize();
       let posting = $.ajax({
-        url: `/businesses/${businessId}/reviews/${reviewId}/comments`,
+        // url: `/businesses/${businessId}/reviews/${reviewId}/comments`,
+        url: `/comments`,
         method: "POST",
         dataType: "json",
         data: values
       })
-      // debugger;
+      debugger;
       posting.done(function (data) {
-        // debugger;
+        debugger;
         let newComment = new Comment (data);
         let commentHTML = newComment.formatComment();
 
