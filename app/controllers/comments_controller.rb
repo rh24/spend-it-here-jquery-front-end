@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     # binding.pry
-    redirect to business_reviews_comments_path if @comment.save
+    redirect_to biz_review_comments_path if @comment.save
   end
 
   def show

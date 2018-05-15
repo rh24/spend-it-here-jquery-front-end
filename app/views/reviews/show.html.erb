@@ -30,24 +30,32 @@
 <%= display_all_link @review %>
 
 <script type="text/javascript">
-$(function () {
-  $('#comment-btn').on('click', function () {
-    $('#comment-section').append(`
-      <%= form_for @comment, url: biz_review_comments_path(@review.business, @review), method: :post do |f| %>
-      <%= f.text_area :content %>
-      <%= f.hidden_field :business_id, :value => @review.business.id %>
-      <%= f.hidden_field :review_id, :value => @review.id %>
-      <%= f.hidden_field :user_id, :value => current_user.id %>
-      <%= f.submit %>
-      <% end %>`)
+  $(function () {
+    $('#comment-btn').on('click', function () {
+      $('#comment-section').append(`
+        <%= form_for @comment, url: biz_review_comments_path(@review.business, @review), method: :post do |f| %>
+        <%= f.text_area :content %>
+        <%= f.hidden_field :business_id, :value => @review.business.id %>
+        <%= f.hidden_field :review_id, :value => @review.id %>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.submit %>
+        <% end %>`)
+    })
+
+    getComment();
   })
 
-  displayComment();
-})
-</script>
+  let $businessId = $('#comment-section').data("business-id");
+  let $reviewId = $('#comment-section').data("review-id");
+  function getComment() {
+    $.get(`/businesses/${$businessId}/reviews/${$reviewId}/comments`, function (data) {
+      debugger;
+    });
 
-<script type="text/javascript">
+    displayComment();
+  }
+
   function displayComment() {
-    $.get('/')
+    $('#comment-section').append("Hello")
   }
 </script>
