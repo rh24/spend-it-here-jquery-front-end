@@ -29,33 +29,33 @@
 <%= display_delete_link @review %> |
 <%= display_all_link @review %>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   $(function () {
     $('#comment-btn').on('click', function (e) {
       e.preventDefault();
       $('#comment-section').append(`
         <%= form_for @comment, url: biz_review_comments_path(@review.business, @review), method: :post do |f| %>
         <%= f.text_area :content %>
-        <%= f.hidden_field :business_id, :value => @review.business.id %>
+        <%# f.hidden_field :business_id, :value => @review.business.id %>
         <%= f.hidden_field :review_id, :value => @review.id %>
         <%= f.hidden_field :user_id, :value => current_user.id %>
         <%= f.submit %>
         <% end %>`)
     })
 
+    let $businessId = $('#comment-section').data("business-id");
+    let $reviewId = $('#comment-section').data("review-id");
+
+    $('form').submit(function (e) {
+      e.preventDefault();
+      alert('hello')
+      $.get(`/businesses/${$businessId}/reviews/${$reviewId}/comments`, function (data) {
+        $('#comment-section').append(`${data[data.length-1]}`);
+        debugger;
+      });
+    });
     // getComment();
   })
-
-  let $businessId = $('#comment-section').data("business-id");
-  let $reviewId = $('#comment-section').data("review-id");
-
-  $('form').on('submit', function (e) {
-    e.preventDefault();
-    debugger;
-    $.get(`/businesses/${$businessId}/reviews/${$reviewId}/comments`, function (data) {
-      $('#comment-section').append(`${data[data.length-1]}`);
-    });
-  });
 
   // displayComment($comment);
   //
@@ -63,4 +63,5 @@
   //   debugger;
   //   $('#comment-section').append(`${}`)
   // }
-// </script>
+
+</script> -->

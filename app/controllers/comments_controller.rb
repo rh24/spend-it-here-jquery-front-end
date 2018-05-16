@@ -6,10 +6,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.create(comment_params)
     # binding.pry
     # redirect_to biz_review_comments_path if @comment.save
-    redirect_to biz_review_path(@business, @review) if @comment.save
+    # redirect_to biz_review_path(@business, @review) if @comment.save
     # render json: @comment, status: 201 if @comment.save
   end
 
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content, :user_id, :review_id)
+    params.require(:comment).permit(:content, :user_id, :review_id, :business_id)
   end
 
   def set_review

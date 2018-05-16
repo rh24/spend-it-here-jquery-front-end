@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :businesses, as: "biz" do
     resources :reviews do
-      resources :comments
+      resources :comments, only: [:show, :index, :new, :update, :delete, :edit]
     end
   end
   resources :comments

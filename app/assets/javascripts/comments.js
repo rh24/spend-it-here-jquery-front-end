@@ -61,7 +61,7 @@ function attachCommentListeners() {
     // let content = $('.content').val();
     let userId = $('.user').data("id");
     if (!$commentArea) {
-      $('#comment-section').append(`<form id="comment-form">
+      $('#comment-section').append(`<form action="/businesses/${businessId}/reviews/${reviewId}/comments" id="comment-form" method="POST">
       <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
       <input type="hidden" name="businessId" value="${businessId}">
       <input type="hidden" name="reviewId" value="${reviewId}">
@@ -69,69 +69,34 @@ function attachCommentListeners() {
       <input type="submit" value="Submit"></input></form>`)
       $('#comment-btn').hide();
     }
-    // } else if ($commentArea.innerHTML !== "") {
-    //   // debugger;
-    //   // post comment to API
-    //   // display comment on page
-    //   alert("You're trying to submit a comment!")
-    // }
-  });
 
-  $('#comment-form').on('submit', function (e) {
-    e.preventDefault();
-    // createComment();
-    let values = $(this).serialize();
-    let posting = $.ajax({
-      url: `/businesses/${businessId}/reviews/${reviewId}/comments`,
-      // url: `/comments`,
-      method: "POST",
-      dataType: "json",
-      data: values
-    })
-    console.log(values);
+    $('#comment-form').on('submit', function (e) {
+      // debugger;
+      e.preventDefault();
+      submitComment(this);
+    });
   });
 }
 
-// function submitComment(element) {
-//   let $commentArea = document.getElementById('create-comment')
-//   let businessId = $('#comment-section').data("business-id");
-//   let reviewId = $('#comment-section').data("review-id");
-//   // let content = $('.content').val();
-//   let userId = $('.user').data("id");
-//   $('#comment-form').submit(function (e) {
-//     e.preventDefault();
-//     // createComment();
-//     let values = $(element).serialize();
-//     let posting = $.ajax({
-//       url: `/businesses/${businessId}/reviews/${reviewId}/comments`,
-//       // url: `/comments`,
-//       method: "POST",
-//       dataType: "json",
-//       data: values
-//     })
-//     // let posting = $.post(`/businesses/${businessId}/reviews/${reviewId}/comments`, values);
-//     posting.done(function (data) {
-//       // debugger;
-//       let newComment = new Comment (data);
-//       debugger;
-//       let commentHTML = newComment.formatComment();
-//
-//       $('#comment-section').append(commentHTML);
-//     })
-//
-//     // $.ajax({
-//     //   method: 'post',
-//     //   url: `businesses/${businessId}/reviews/${reviewId}/comments`,
-//     //   // data: { content: content, user_id: userId, review_id: reviewId }
-//     // }).done(function (data) {
-//     //   $('#comment-section').append(`
-//     //     <br><div id="comment-${comment.id}">
-//     //     Test
-//     //     </div><br>
-//     //   `)
-//     // });
-//   });
-// }
+function submitComment(element) {
+  let $commentArea = document.getElementById('create-comment')
+  let businessId = $('#comment-section').data("business-id");
+  let reviewId = $('#comment-section').data("review-id");
+  // let content = $('.content').val();
+  let userId = $('.user').data("id");
+    let values = $(element).serialize();
+    $.ajax({
+      url: `/businesses/${businessId}/reviews/${reviewId}/comments`,
+      method: "POST",
+      dataType: "json",
+      data: values
+    }).done(function (data) {
+      let newComment = new Comment (data[data.length-1]);
+      let commentHTML = newComment.formatComment();
+
+      $('#comment-section').append(commentHTML);
+    })
+}
 
 Comment.prototype.formatComment = () => {
   console.log(this)
