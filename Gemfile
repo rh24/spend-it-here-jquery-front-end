@@ -22,6 +22,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-google-oauth2', '~> 0.2.1'
 gem 'omniauth-github'
+gem 'active_model_serializers'
 
 gem 'dotenv-rails'
 gem 'has_scope', '~> 0.7.1'

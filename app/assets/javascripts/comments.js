@@ -85,12 +85,13 @@ function submitComment(element) {
   // let content = $('.content').val();
   let userId = $('.user').data("id");
   // let values = $(element).serialize();
+
   // debugger;
   $.ajax({
     url: element.action,
     method: "POST",
     dataType: "json",
-    data: JSON.stringify(values),
+    data: values,
     contentType: "application/json; charset=utf-8",
     success: function (msg) {
       console.log(msg);
