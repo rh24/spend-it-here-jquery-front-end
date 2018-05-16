@@ -63,9 +63,6 @@ function attachCommentListeners() {
     if (!$commentArea) {
       $('#comment-section').append(`<form action="/businesses/${businessId}/reviews/${reviewId}/comments" id="comment-form" method="POST">
       <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
-      <input type="hidden" name="businessId" value="${businessId}">
-      <input type="hidden" name="reviewId" value="${reviewId}">
-      <input type="hidden" name="userId" value="${userId}">
       <input type="submit" value="Submit"></input></form>`)
       $('#comment-btn').hide();
     }
@@ -77,28 +74,48 @@ function attachCommentListeners() {
   });
 }
 
+// <input type="hidden" name="businessId" value="${businessId}">
+// <input type="hidden" name="reviewId" value="${reviewId}">
+// <input type="hidden" name="userId" value="${userId}">
+
 function submitComment(element) {
   let $commentArea = document.getElementById('create-comment')
   let businessId = $('#comment-section').data("business-id");
   let reviewId = $('#comment-section').data("review-id");
   // let content = $('.content').val();
   let userId = $('.user').data("id");
-    let values = $(element).serialize();
-    $.ajax({
-      url: element.action,
-      method: "POST",
-      dataType: "json",
-      data: values
-    }).done(function (data) {
-      let newComment = new Comment (data[data.length-1]);
-      let commentHTML = newComment.formatComment();
+  // let values = $(element).serialize();
+  // debugger;
+  $.ajax({
+    url: element.action,
+    method: "POST",
+    dataType: "json",
+    data: JSON.stringify(values),
+    contentType: "application/json; charset=utf-8",
+    success: function (msg) {
+      console.log(msg);
+    },
+    error: function (errormessage) {
+      alert("error");
+    }
+  })
+  // .done(function (data) {
+  //   console.log(data);
+  //   let newComment = new Comment (data);
+  //   // let commentHTML = newComment.formatComment();
+  //   // console.log(newComment);
+  //   // $('#comment-section').append(commentHTML);
+  // })
 
-      $('#comment-section').append(commentHTML);
-    })
+  // let posting = $.post(`${element.action}`, values)
+  // posting.success(function (resp) {
+  //   console.log(resp)
+  // })
 }
 
 Comment.prototype.formatComment = () => {
   // console.log(this)
+
 }
 
 function createComment() {
