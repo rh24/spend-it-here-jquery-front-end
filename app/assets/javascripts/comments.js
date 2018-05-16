@@ -71,7 +71,6 @@ function attachCommentListeners() {
     }
 
     $('#comment-form').on('submit', function (e) {
-      // debugger;
       e.preventDefault();
       submitComment(this);
     });
@@ -86,7 +85,7 @@ function submitComment(element) {
   let userId = $('.user').data("id");
     let values = $(element).serialize();
     $.ajax({
-      url: `/businesses/${businessId}/reviews/${reviewId}/comments`,
+      url: element.action,
       method: "POST",
       dataType: "json",
       data: values
@@ -99,7 +98,7 @@ function submitComment(element) {
 }
 
 Comment.prototype.formatComment = () => {
-  console.log(this)
+  // console.log(this)
 }
 
 function createComment() {
