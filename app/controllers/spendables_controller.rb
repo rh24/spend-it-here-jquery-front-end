@@ -5,4 +5,9 @@ class SpendablesController < ApplicationController
     # Spendable.bitcoin
     render :'businesses/index'
   end
+
+  def index
+    @spendables = Spendable.all
+    render json: @spendables, status: 200
+  end
 end
