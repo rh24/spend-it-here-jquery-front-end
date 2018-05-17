@@ -13,3 +13,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require comments
+//= require jquery
+//= require jquery_ujs

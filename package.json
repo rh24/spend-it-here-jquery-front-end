@@ -1,5 +1,8 @@
 {
   "name": "spend-it-here",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "can-deparam": "^1.1.1",
+    "query-string": "^6.1.0"
+  }
 }

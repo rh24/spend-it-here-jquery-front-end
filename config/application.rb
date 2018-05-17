@@ -27,5 +27,8 @@ module SpendItHere
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # This lets you use npm modules in your Sprockets assets.
+    config.assets.paths << Rails.root.join('node_modules')
   end
 end

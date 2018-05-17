@@ -18,9 +18,11 @@
 <button id="comment-btn">Add Comment</button>
 <a id="load-comments" href="#">Load Comments</a>
 <div id="comment-section" data-review-id="<%= @review.id %>" data-business-id="<%= @review.business_id %>">
-  <div class="content">
-    <div class="user" data-id="<%= current_user.id %>">
+  <div class="comment-object" data-value="<%= @comment %>">
+    <div class="content">
+      <div class="user" data-id="<%= current_user.id %>">
 
+      </div>
     </div>
   </div>
 </div>
@@ -28,3 +30,53 @@
 <%= display_edit_link @review %> |
 <%= display_delete_link @review %> |
 <%= display_all_link @review %>
+
+<script type="text/javascript">
+  $(function () {
+    $('#comment-btn').on('click', function (e) {
+      e.preventDefault();
+      let $commentArea = document.getElementById('create-comment')
+      if (!$commentArea) {
+        $('#comment-section').append(`
+          <%= form_for @comment, url: biz_review_comments_path(@review.business, @review), :html => {:id => "create-comment"}, :method => :post do |f| %>
+          <%= f.text_area :content %>
+          <%# f.hidden_field :business_id, :value => @review.business.id %>
+          <%= f.hidden_field :review_id, :value => @review.id %>
+          <%= f.hidden_field :user_id, :value => current_user.id %>
+          <%= f.submit %>
+          <% end %>`)
+        $('#comment-btn').hide();
+      }
+
+      $('form').on('submit', function (e) {
+        // debugger;
+        e.preventDefault();
+        let values = $(this).serialize();
+
+        // debugger;
+        $.ajax({
+          url: this.action,
+          method: "POST",
+          dataType: "json",
+          data: values,
+          success: function (values) {
+            let pairs = location.search.slice(1).split('&');
+            let result = {};
+            pairs.forEach(function(pair) {
+              pair = pair.split('=');
+              result[pair[0]] = decodeURIComponent(pair[1] || '');
+            });
+            let commentObj = JSON.stringify(result)
+            let newComment = new Comment (commentObj);
+            $('#comment-section').append(newComment);
+            return commentObj;
+            debugger;
+          },
+          error: function () {
+            alert('error');
+          }
+        }).done(() => alert('hi'));
+      })
+    });
+  });
+</script>

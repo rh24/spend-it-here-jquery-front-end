@@ -34,57 +34,13 @@ Comment.prototype.loadAllComments = function () {
   });
 }
 
-$(document).ready(function () {
-  attachCommentListeners();
-})
-
-// If you do not add e.preventDefault(), your js will not work!!
-
-function attachCommentListeners() {
-
-  let $commentArea = document.getElementById('create-comment')
-  let businessId = $('#comment-section').data("business-id");
-  let reviewId = $('#comment-section').data("review-id");
-  // let content = $('.content').val();
-  let userId = $('.user').data("id");
-
-  $('#load-comments').on('click', function (e) {
-    e.preventDefault();
-    Comment.prototype.loadAllComments();
-  });
-
-  $('#comment-btn').on('click', function (e) {
-    e.preventDefault();
-    let $commentArea = document.getElementById('create-comment')
-    let businessId = $('#comment-section').data("business-id");
-    let reviewId = $('#comment-section').data("review-id");
-    // let content = $('.content').val();
-    let userId = $('.user').data("id");
-    if (!$commentArea) {
-      $('#comment-section').append(`<form action="/businesses/${businessId}/reviews/${reviewId}/comments" id="comment-form" method="POST">
-      <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
-      <input type="submit" value="Submit"></input></form>`)
-      $('#comment-btn').hide();
-    }
-
-    $('#comment-form').on('submit', function (e) {
-      e.preventDefault();
-      submitComment(this);
-    });
-  });
-}
-
-// <input type="hidden" name="businessId" value="${businessId}">
-// <input type="hidden" name="reviewId" value="${reviewId}">
-// <input type="hidden" name="userId" value="${userId}">
-
 function submitComment(element) {
-  let $commentArea = document.getElementById('create-comment')
-  let businessId = $('#comment-section').data("business-id");
-  let reviewId = $('#comment-section').data("review-id");
-  // let content = $('.content').val();
-  let userId = $('.user').data("id");
-  // let values = $(element).serialize();
+  // let $commentArea = document.getElementById('create-comment')
+  // let businessId = $('#comment-section').data("business-id");
+  // let reviewId = $('#comment-section').data("review-id");
+  // // let content = $('.content').val();
+  // let currentUserId = $('.user').data("id");
+  let values = $(element).serialize();
 
   // debugger;
   $.ajax({
@@ -92,14 +48,24 @@ function submitComment(element) {
     method: "POST",
     dataType: "json",
     data: values,
-    contentType: "application/json; charset=utf-8",
-    success: function (msg) {
-      console.log(msg);
-    },
-    error: function (errormessage) {
-      alert("error");
+    success: function (values) {
+      let pairs = location.search.slice(1).split('&');
+      let result = {};
+      pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+      });
+      let commentObj = JSON.stringify(result)
+      let newComment = new Comment (commentObj);
+      $('#comment-section').append(newComment);
+      return commentObj;
     }
   })
+  // debugger;
+  // .fail(function (jqXHR, textStatus) {
+  //         debugger;
+  //   document.body.innerHTML = jqXHR.responseText;
+  // });
   // .done(function (data) {
   //   console.log(data);
   //   let newComment = new Comment (data);
@@ -114,10 +80,78 @@ function submitComment(element) {
   // })
 }
 
-Comment.prototype.formatComment = () => {
-  // console.log(this)
+$(document).ready(function () {
+  attachCommentListeners();
+})
 
-}
+// If you do not add e.preventDefault(), your js will not work!!
+
+function attachCommentListeners() {
+
+  let $commentArea = document.getElementById('create-comment')
+  let businessId = $('#comment-section').data("business-id");
+  let reviewId = $('#comment-section').data("review-id");
+  // let content = $('.content').val();
+  let currentUserId = $('.user').data("id");
+
+  $('#load-comments').on('click', function (e) {
+    e.preventDefault();
+    Comment.prototype.loadAllComments();
+  });
+
+  // $('#comment-btn').on('click', function (e) {
+  //   e.preventDefault();
+  //   let $commentArea = document.getElementById('create-comment')
+  //   let businessId = $('#comment-section').data("business-id");
+  //   let reviewId = $('#comment-section').data("review-id");
+  //   // let content = $('.content').val();
+  //   let currentUserId = $('.user').data("id");
+  //   if (!$commentArea) {
+  //     $('#comment-section').append(`<form action="/businesses/${businessId}/reviews/${reviewId}/comments" id="comment-form" method="POST">
+  //     <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
+  //     <input type="hidden" name="user_id" value="${currentUserId}">
+  //     <input type="submit" value="Submit"></input></form>`)
+  //     $('#comment-btn').hide();
+  //   }
+
+    $('form').on('submit', function (e) {
+      debugger;
+      e.preventDefault();
+      let values = $(element).serialize();
+
+      // debugger;
+      $.ajax({
+        url: element.action,
+        method: "POST",
+        dataType: "json",
+        data: values,
+        success: function (values) {
+          let pairs = location.search.slice(1).split('&');
+          let result = {};
+          pairs.forEach(function(pair) {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+          });
+          let commentObj = JSON.stringify(result)
+          let newComment = new Comment (commentObj);
+          $('#comment-section').append(newComment);
+          return commentObj;
+        }
+      })
+    }); // form doesn't exist until user clicks button
+  // }); End of previous AJAX comment form
+} //End of attachCommentListeners()
+
+// <input type="hidden" name="businessId" value="${businessId}">
+// <input type="hidden" name="reviewId" value="${reviewId}">
+// <input type="hidden" name="userId" value="${userId}">
+
+// Comment.prototype.formatComment = () => {
+//   let commentHTML = `
+//     ${this}.
+//   `
+//
+// }
 
 function createComment() {
   let businessId = $('#comment-section').data("business-id");
