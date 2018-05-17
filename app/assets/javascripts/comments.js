@@ -1,8 +1,8 @@
-let id = 0;
+let id = 1;
 
 function Comment(content, userId, reviewId) {
   this.content = content;
-  this.id = id++;
+  this.id = id;
   this.userId = userId;
   this.reviewId = reviewId;
 
