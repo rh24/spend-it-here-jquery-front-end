@@ -65,7 +65,10 @@
           }
         }).done(function (data) {
           $('#comment-section').append(`<div id="comment-${data["id"]}">
-          <div class="content"><li>${data["content"]}</li></div>
+          <div class="content">
+          <li>${data["content"]}</li>
+          <p>posted by: ${data["user"]["email"]}</p>
+          </div>
           </div>
           `)
         });
@@ -73,7 +76,7 @@
     });
   });
 
-  Comment.prototype.formatComment = () => {
-    $('.content').html(`${this["content"]}`);
-  }
+  // Comment.prototype.formatComment = () => {
+  //   $('.content').html(`${this["content"]}`);
+  // }
 </script>
