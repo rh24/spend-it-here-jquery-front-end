@@ -72,7 +72,10 @@
             alert('error');
           }
         }).done(function (data) {
-          formatComment().bind(data);
+          $('#comment-section').append(`<div data-id"${data["id"]}">
+          <div class="content">${data["content"]}</div>
+          </div>
+          `)
         });
       })
     });

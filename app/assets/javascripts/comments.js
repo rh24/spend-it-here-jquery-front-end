@@ -28,7 +28,6 @@ Comment.prototype.loadAllComments = function (clicker) {
       respChunks.push(subchunk);
     }
     for (let el of respChunks[clicker]) {
-      // debugger;
       $.get(`/users/${el["user_id"]}.json`, function (data) {
         user = data["email"];
         html = `
@@ -41,8 +40,6 @@ Comment.prototype.loadAllComments = function (clicker) {
       });
     };
     clicker++;
-    // debugger;
-
   }); // End of .done
 }// End of Comment.prototype.loadAllComments
 
