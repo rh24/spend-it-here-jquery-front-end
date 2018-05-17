@@ -1,4 +1,5 @@
 let id = 1;
+let clicker = 0;
 
 function Comment(content, userId, reviewId) {
   this.content = content;
@@ -9,7 +10,7 @@ function Comment(content, userId, reviewId) {
   id++;
 }
 
-Comment.prototype.loadAllComments = function () {
+Comment.prototype.loadAllComments = function (clicker) {
   let businessId = $('#comment-section').data("business-id");
   let reviewId = $('#comment-section').data("review-id");
   let user; // Need to grab username
@@ -19,9 +20,17 @@ Comment.prototype.loadAllComments = function () {
     url: `/businesses/${businessId}/reviews/${reviewId}/comments.json`,
     dataType: "json"
   }).done(function (resp) {
-    resp.forEach(function (el) {
-      $.get(`/users/${el["user_id"]}.json`, function (resp) {
-        user = resp["email"];
+    const respChunks = [];
+    let subchunk;
+    let size = 3;
+    for (let i = 0; i < resp.length; i += size) {
+      subchunk = resp.slice(i, i + size);
+      respChunks.push(subchunk);
+    }
+    for (let el of respChunks[clicker]) {
+      // debugger;
+      $.get(`/users/${el["user_id"]}.json`, function (data) {
+        user = data["email"];
         html = `
         <div id="comment-${el.id}">
         <li>${el.content}</li>
@@ -30,9 +39,12 @@ Comment.prototype.loadAllComments = function () {
         `
         $('#comment-section').append(html);
       });
-    });
-  });
-}
+    };
+    clicker++;
+    // debugger;
+
+  }); // End of .done
+}// End of Comment.prototype.loadAllComments
 
 function submitComment(element) {
   // let $commentArea = document.getElementById('create-comment')
@@ -96,7 +108,8 @@ function attachCommentListeners() {
 
   $('#load-comments').on('click', function (e) {
     e.preventDefault();
-    Comment.prototype.loadAllComments();
+    Comment.prototype.loadAllComments(clicker);
+    clicker++;
   });
 
   // $('#comment-btn').on('click', function (e) {
@@ -171,4 +184,8 @@ function createComment() {
     <br><div id="comment-${comment.id}">
     </div><br>
   `)
+}
+
+Comment.prototype.formatComment = function () {
+  $('.content').html(`${this["content"]}`);
 }

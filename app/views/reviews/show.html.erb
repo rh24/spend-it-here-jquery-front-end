@@ -49,11 +49,8 @@
       }
 
       $('form').on('submit', function (e) {
-        // debugger;
         e.preventDefault();
         let values = $(this).serialize();
-
-        // debugger;
         $.ajax({
           url: this.action,
           method: "POST",
@@ -69,28 +66,19 @@
             // debugger;
             // let commentObj = JSON.stringify(result)
             let newComment = new Comment (resp["content"], resp["user_id"], resp["review_id"]);
-            debugger;
-            $('#comment-section').append(newComment);
-            return commentObj;
+            return newComment;
           },
           error: function () {
             alert('error');
           }
-        }).done(function () {
-          let hi = location.search
-          debugger;
-          let pairs = location.search.values.slice(1).split('&');
-          let result = {};
-          debugger;
-          pairs.forEach(function(pair) {
-            pair = pair.split('=');
-            result[pair[0]] = decodeURIComponent(pair[1] || '');
-          });
-          let commentObj = JSON.stringify(result)
-          let newComment = new Comment (commentObj);
-          $('#comment-section').append(newComment);
+        }).done(function (data) {
+          formatComment().bind(data);
         });
       })
     });
   });
+
+  Comment.prototype.formatComment = () => {
+    $('.content').html(`${this["content"]}`);
+  }
 </script>
