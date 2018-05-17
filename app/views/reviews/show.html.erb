@@ -59,23 +59,37 @@
           method: "POST",
           dataType: "json",
           data: values,
-          success: function (values) {
-            let pairs = location.search.slice(1).split('&');
-            let result = {};
-            pairs.forEach(function(pair) {
-              pair = pair.split('=');
-              result[pair[0]] = decodeURIComponent(pair[1] || '');
-            });
-            let commentObj = JSON.stringify(result)
-            let newComment = new Comment (commentObj);
+          success: function (resp) { //resp = {id: 71, content: "asdf", user_id: 1, review_id: 11, review: {…}}
+            // let pairs = location.search.slice(1).split('&');
+            // let result = {};
+            // pairs.forEach(function(pair) {
+            //   pair = pair.split('=');
+            //   result[pair[0]] = decodeURIComponent(pair[1] || '');
+            // });
+            // debugger;
+            // let commentObj = JSON.stringify(result)
+            let newComment = new Comment (resp["content"], resp["user_id"], resp["review_id"]);
+            debugger;
             $('#comment-section').append(newComment);
             return commentObj;
-            debugger;
           },
           error: function () {
             alert('error');
           }
-        }).done(() => alert('hi'));
+        }).done(function () {
+          let hi = location.search
+          debugger;
+          let pairs = location.search.values.slice(1).split('&');
+          let result = {};
+          debugger;
+          pairs.forEach(function(pair) {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+          });
+          let commentObj = JSON.stringify(result)
+          let newComment = new Comment (commentObj);
+          $('#comment-section').append(newComment);
+        });
       })
     });
   });

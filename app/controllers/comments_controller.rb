@@ -10,9 +10,7 @@ class CommentsController < ApplicationController
     # raise errors.inspect
     # raise params.inspect
     # binding.pry
-    # redirect_to biz_review_comments_path if @comment.save
-    # redirect_to biz_review_path(@business, @review) if @comment.save
-    # render json: @comment, status: 201 if @comment.save
+    render json: @comment, status: 201 if @comment.save
   end
 
   def show
