@@ -13,5 +13,6 @@
 //= require rails-ujs
 //= require turbolinks
 //= require comments
-//= require jquery
-//= require jquery_ujs
+//= require jquery3
+//= require popper
+//= require bootstrap

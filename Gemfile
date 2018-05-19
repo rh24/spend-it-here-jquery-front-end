@@ -26,7 +26,6 @@ gem 'active_model_serializers'
 
 gem 'dotenv-rails'
 gem 'has_scope', '~> 0.7.1'
-gem 'bootstrap', '~> 4.0.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -40,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'nokogiri'
 gem 'jquery-rails'
+gem 'bootstrap', '~> 4.1.1'
+gem 'sprockets-rails'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -46,11 +46,11 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
-    autoprefixer-rails (8.2.0)
+    autoprefixer-rails (8.5.0)
       execjs
     bcrypt (3.1.11)
     bindex (0.5.0)
-    bootstrap (4.0.0)
+    bootstrap (4.1.1)
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
@@ -249,7 +249,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  bootstrap (~> 4.0.0)
+  bootstrap (~> 4.1.1)
   byebug
   coffee-rails (~> 4.2)
   devise
@@ -269,6 +269,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
+  sprockets-rails
   sqlite3
   turbolinks (~> 5)
   tzinfo-data
