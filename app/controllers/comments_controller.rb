@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    # raise errors.inspect
+    raise errors.inspect
     # raise params.inspect
     # binding.pry
     render json: @comment, status: 201 if @comment.save
