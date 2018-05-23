@@ -1,6 +1,6 @@
 $('#myReviews').on('click', function (e) {
   e.preventDefault();
-  $.get(`/posts.json`, function (data) {
+  $.get(`/reviews.json`, function (data) {
     data.forEach(function (el) {
       $('#posts-index').append(`
         <div id="post-${el["id"]}">
