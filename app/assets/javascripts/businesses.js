@@ -42,7 +42,8 @@ function getCoins() {
   let values = [];
 
   for (let i = 0; i < fullList.length; i++) {
-    values.push(fullList[i].value);
+    let crypto = new Coin(fullList[i].value, fullList[i].data("id"), fullList[i].data("symbol"))
+    values.push(crypto); // Make Crypto objects instead
   }
 debugger;
   return values;

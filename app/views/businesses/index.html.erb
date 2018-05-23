@@ -18,7 +18,7 @@
   <input id="selected-coin" type="text" list="coins">
   <datalist id="coins" multiple>
     <% Crypto.order_by_name.each do |crypto| %>
-      <option value="<%= crypto.name %>" data-id="<%= crypto.id %>"></option>
+      <option value="<%= crypto.name %>" data-id="<%= crypto.id %>" data-symbol="<%= crypto.symbol %>"></option>
       <% # JS display on page, then add another field %>
     <% end %>
   </datalist>
