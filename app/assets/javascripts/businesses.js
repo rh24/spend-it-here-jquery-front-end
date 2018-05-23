@@ -37,12 +37,12 @@ function renderReviews(businessId) {
     return resp.json()
   }).then(function (myJson) {
     let reviews = myJson
-    formatReviews(myJson);
+    reviews.forEach(function (r) {
+      let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user.id, r.business.id, r.crypto.id)
+            debugger;
+    })
   })
 }
-
-
-
 
 function getBusinesses(searchItem) {
   // $.get(`/spendables`, function (resp) {

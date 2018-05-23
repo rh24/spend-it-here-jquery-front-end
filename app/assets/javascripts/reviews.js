@@ -1,5 +1,6 @@
 class Review {
-  constructor(title, rating, content, wouldRecommend, userId, businessId, cryptoId) {
+  constructor(id, title, rating, content, wouldRecommend, userId, businessId, cryptoId) {
+    this.id = id;
     this.title = title;
     this.rating = rating;
     this.content = content;
@@ -10,6 +11,6 @@ class Review {
   }
 
   formatReview() {
-    
+
   }
 }
