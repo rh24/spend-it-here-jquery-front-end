@@ -9,23 +9,11 @@ function attachCryptoListeners() {
 }
 
 function getCryptoData() {
-  let cryptoJson = $.ajax({
-    url: 'https://api.coinmarketcap.com/v2/listings/',
-    method: 'GET',
-    success: () => alert("hooray!")
+  fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
+    return resp.json()
+  }).then(function (myJson) {
+    let coins = myJson["data"]
   })
-  // .then(function (resp) {
-  //   let coins = resp["data"]
-  //   debugger;
-  //   for (let coinData of coins) {
-  //     coin = new Crypto(coinData["name"], coinData["symbol"], coinData["id"])
-  //     // $.post('/coins', {}, function (coin) {
-  //     //   // post to data-list /api?
-  //     // })
-  //     debugger;
-  //   }
-  // });
-  return cryptoJson;
 }
 
 // let coinId = 0;
