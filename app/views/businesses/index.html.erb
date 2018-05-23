@@ -14,6 +14,7 @@
 
 <div class="filter-businesses">
   <label>Filter by crypto: </label>
+  <form id="filter">
   <input type="text" list="coins">
   <datalist id="coins" multiple>
     <% Crypto.order_by_name.each do |crypto| %>
@@ -22,4 +23,12 @@
     <% end %>
   </datalist>
   <input type="submit" value="Search">
+  </form>
 </div>
+
+<script type="text/javascript">
+  $('#filter').on('submit', function (e) {
+    e.preventDefault;
+    alert("work");
+  })
+</script>
