@@ -36,10 +36,12 @@ function renderReviews(businessId) {
   fetch(`/businesses/${businessId}/reviews.json`).then(function (resp) {
     return resp.json()
   }).then(function (myJson) {
-    let reviews = myJson
+    let reviews = myJson;
     reviews.forEach(function (r) {
-      let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user.id, r.business.id, r.crypto.id)
-            debugger;
+      r.user
+      let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user.id, r.business.id, r.crypto.id);
+      debugger;
+      review.formatReview();
     })
   })
 }
