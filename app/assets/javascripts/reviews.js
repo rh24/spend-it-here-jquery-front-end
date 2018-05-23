@@ -1,13 +1,15 @@
-$('#myReviews').on('click', function (e) {
-  e.preventDefault();
-  $.get(`/reviews.json`, function (data) {
-    data.forEach(function (el) {
-      $('#posts-index').append(`
-        <div id="post-${el["id"]}">
-        <h4><a href="/posts/${el["id"]}">${el["title"]}</a></h4>
-        <p>${el["content"]}</p>
-        </div>
-      `)
-    })
-  })
-})
+class Review {
+  constructor(title, rating, content, wouldRecommend, userId, businessId, cryptoId) {
+    this.title = title;
+    this.rating = rating;
+    this.content = content;
+    this.wouldRecommend = wouldRecommend;
+    this.userId = userId;
+    this.businessId = businessId;
+    this.cryptoId = cryptoId;
+  }
+
+  formatReview() {
+    
+  }
+}

@@ -23,23 +23,30 @@ Comment.prototype.loadAllComments = function (clicker) {
     const respChunks = [];
     let subchunk;
     let size = 3;
-    for (let i = 0; i < resp.length; i += size) {
-      subchunk = resp.slice(i, i + size);
-      respChunks.push(subchunk);
+
+    if (resp.length) {
+      for (let i = 0; i < resp.length; i += size) {
+        subchunk = resp.slice(i, i + size);
+        respChunks.push(subchunk);
+      }
+      for (let el of respChunks[clicker]) {
+        $.get(`/users/${el["user_id"]}.json`, function (data) {
+          user = data["email"];
+          html = `
+          <div id="comment-${el.id}">
+          <li>${el.content}</li>
+          <p>posted by: ${user}</p>
+          </div><br>
+          `
+          $('#comment-section').append(html);
+        });
+      };
+      clicker++;
+    } else {
+      $('#comment-section').append(`
+        <h3>This review does not have any comments.</h3>
+        `);
     }
-    for (let el of respChunks[clicker]) {
-      $.get(`/users/${el["user_id"]}.json`, function (data) {
-        user = data["email"];
-        html = `
-        <div id="comment-${el.id}">
-        <li>${el.content}</li>
-        <p>posted by: ${user}</p>
-        </div><br>
-        `
-        $('#comment-section').append(html);
-      });
-    };
-    clicker++;
   }); // End of .done
 }// End of Comment.prototype.loadAllComments
 

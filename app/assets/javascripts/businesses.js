@@ -41,7 +41,8 @@ function renderReviews(businessId) {
   })
 }
 
- 
+
+
 
 function getBusinesses(searchItem) {
   // $.get(`/spendables`, function (resp) {
