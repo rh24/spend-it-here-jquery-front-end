@@ -17,10 +17,13 @@ function getBusinesses(searchItem) {
   //   })
   // let coins = $('#coins').find('option').map(c => c.value);
   let coins = getCoins();
+  let matches = coins.filter(name => name.toLowerCase() === searchItem.toLowerCase().length > 0);
   // debugger;
-  if (coins.filter(name => name.toLowerCase() === searchItem.toLowerCase().length > 0)) {
+  if (matches.length > 0) {
     alert(searchItem);
   }
+
+  alert("We found no matches.")
 }
 
 function getCoins() {
