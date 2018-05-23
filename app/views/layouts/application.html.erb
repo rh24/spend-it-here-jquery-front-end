@@ -7,7 +7,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag "application" %>
+    <%= yield :javascript_includes %>
     <%= csrf_meta_tags %>
     <% if protect_against_forgery? %>
       <meta name="authenticity-token" id="authenticity-token" content="<%= form_authenticity_token %>" />

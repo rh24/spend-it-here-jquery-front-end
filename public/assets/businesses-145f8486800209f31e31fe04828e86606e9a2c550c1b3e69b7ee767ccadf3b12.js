@@ -3,15 +3,15 @@ $(document).ready(function () {
 })
 
 // I tried to refactor getBusinesses to invoke this method when set to variable `cyryptos`, but it kept turning up undefined in the chrome console.
-function getCryptoData() {
-  fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
-    return resp.json();
-  }).then(function (myJson) {
-    let cryptos = myJson["data"];
-    return cryptos;
-    // makeCryptoObjects(cryptos);
-  })
-}
+// function getCryptoData() {
+//   fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
+//     return resp.json();
+//   }).then(function (myJson) {
+//     let cryptos = myJson["data"];
+//     return cryptos;
+//     // makeCryptoObjects(cryptos);
+//   })
+// }
 
 function Business(id, name, priceRange, description, locationId, categoryId, discountOffered) {
 
@@ -23,11 +23,6 @@ function attachBusinessListeners() {
     let searchItem = $('#selected-coin').val();
     getBusinesses(searchItem);
   })
-
-  $('.see-reviews').on('click', function (e) {
-    e.preventDefault();
-    alert("reviews")
-  })
 }
 
 function getBusinesses(searchItem) {
@@ -36,14 +31,8 @@ function getBusinesses(searchItem) {
   //     console.log(`${resp}`)
   //   })
   // let coins = $('#coins').find('option').map(c => c.value);
-  let cryptos = [];
-  fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
-    return resp.json();
-  }).then(function (myJson) {
-    cryptos.push(myJson["data"]);
-    return cryptos;
-    // makeCryptoObjects(cryptos);
-  })
+  let cryptos = getCoinData();
+  debugger;
   let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
   let matches = fetch('/spendables').then(function (resp) {
     return resp.json()
@@ -83,3 +72,4 @@ function getCoins() {
 // newBusiness.protoptype.seeMore = () => {
 //
 // }
+;

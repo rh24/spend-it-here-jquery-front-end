@@ -15,4 +15,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 Rails.application.config.assets.precompile += ["categories.css", "form.css", "nav.css"]
 
-Rails.application.config.assets.precompile += %w( coins.js )
+Rails.application.config.assets.precompile += %w( cryptos.js businesses.js )
+
+# config.assets.precompile += %w( backoffice.js pos.js pos.css backoffice.css )

@@ -1,9 +1,9 @@
  // Make JS objects out of CMC API Data
  // https://coinmarketcap.com/api/
 
-// $(document).ready(function () {
-//   attachCryptoListeners();
-// });
+$(document).ready(function () {
+  attachCryptoListeners();
+});
 
 function attachCryptoListeners() {
   /*
@@ -71,3 +71,4 @@ Sample Response:
 */
 
 // Alternatively, I can create and hit my own API endpoint displaying coin data, but I would not be actively managing this data. Perhaps, it's better to rely on a site like CoinMarketCap.
+;

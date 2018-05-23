@@ -28,7 +28,7 @@
 <div class="">
   <%= link_to "Delete Business", biz_path(@business), :method => :delete, :confirm => "Are you sure?" %> |
   <%= link_to "Edit Information", edit_biz_path(@business) %> |
-  <%= link_to "View #{@business.name}'s Reviews", biz_reviews_path(@business) %>
+  <%= link_to "View #{@business.name}'s Reviews", biz_reviews_path(@business), :class => "see-reviews" %>
 </div><br />
 
 <div class="">
