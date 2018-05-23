@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require turbolinks
 //= require comments
+//= require cryptos
 //= require businesses
 //= require jquery3
 //= require popper

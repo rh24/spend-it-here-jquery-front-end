@@ -2,29 +2,36 @@
  // https://coinmarketcap.com/api/
 
 $(document).ready(function () {
-  attachCoinListeners();
+  getCryptoData()
 });
 
-function attachCoinListeners() {
-
+function attachCryptoListeners() {
 }
 
-function getCoinData() {
-  $.get('https://api.coinmarketcap.com/v2/listings/', function (resp) {
-    let coins = resp["data"]
-    for (let coinData of coins) {
-      coin = new Coin(coinData["name"], coinData["symbol"], coinData["id"])
-      $.post('/coins', {}, function (coin) {
-        // post to data-list /api?
-      })
-    }
-  });
+function getCryptoData() {
+  let cryptoJson = $.ajax({
+    url: 'https://api.coinmarketcap.com/v2/listings/',
+    method: 'GET',
+    success: () => alert("hooray!")
+  })
+  // .then(function (resp) {
+  //   let coins = resp["data"]
+  //   debugger;
+  //   for (let coinData of coins) {
+  //     coin = new Crypto(coinData["name"], coinData["symbol"], coinData["id"])
+  //     // $.post('/coins', {}, function (coin) {
+  //     //   // post to data-list /api?
+  //     // })
+  //     debugger;
+  //   }
+  // });
+  return cryptoJson;
 }
 
 // let coinId = 0;
 // Should I use CMC's ID or rely on creating my own?
 
-function Coin(name, symbol, id) {
+function Crypto(name, symbol, id) {
   this.name = name;
   this.symbol = symbol;
   this.id = id;

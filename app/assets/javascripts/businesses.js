@@ -2,6 +2,10 @@ $(document).ready(function () {
   attachBusinessListeners();
 })
 
+function Business(id, name, priceRange, description, locationId, categoryId, discountOffered) {
+
+}
+
 function attachBusinessListeners() {
   $('#filter').on('submit', function (e) {
     e.preventDefault;
@@ -42,9 +46,13 @@ function getCoins() {
   let values = [];
 
   for (let i = 0; i < fullList.length; i++) {
-    let crypto = new Coin(fullList[i].value, fullList[i].data("id"), fullList[i].data("symbol"))
+    let crypto = new Crypto(fullList[i].value, fullList[i].data("id"), fullList[i].data("symbol"))
     values.push(crypto); // Make Crypto objects instead
   }
-debugger;
+// debugger;
   return values;
 }
+//
+// newBusiness.protoptype.seeMore = () => {
+//
+// }
