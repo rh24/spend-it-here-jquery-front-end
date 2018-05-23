@@ -42,10 +42,11 @@ Comment.prototype.loadAllComments = function (clicker) {
         });
       };
       clicker++;
-    } else {
+    } else if (clicker === 0){
       $('#comment-section').append(`
-        <h3>This review does not have any comments.</h3>
+        <h3 id="no-comments">This review does not have any comments.</h3>
         `);
+      clicker++;
     }
   }); // End of .done
 }// End of Comment.prototype.loadAllComments
