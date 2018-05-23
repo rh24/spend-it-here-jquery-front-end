@@ -26,9 +26,22 @@ function attachBusinessListeners() {
 
   $('.see-reviews').on('click', function (e) {
     e.preventDefault();
-    alert("reviews")
+    let businessId = $(this).data('id')
+    // debugger;
+    renderReviews(businessId);
   })
 }
+
+function renderReviews(businessId) {
+  fetch(`/businesses/${businessId}/reviews.json`).then(function (resp) {
+    return resp.json()
+  }).then(function (myJson) {
+    let reviews = myJson
+    formatReviews(myJson);
+  })
+}
+
+ 
 
 function getBusinesses(searchItem) {
   // $.get(`/spendables`, function (resp) {
