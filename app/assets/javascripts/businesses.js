@@ -4,13 +4,14 @@ $(document).ready(function () {
 
 // I tried to refactor getBusinesses to invoke this method when set to variable `cyryptos`, but it kept turning up undefined in the chrome console.
 function getCryptoData() {
-  fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
+  fetch('https://api.coinmarketcap.com/v2/ticker/').then(function (resp) {
     return resp.json();
   }).then(function (myJson) {
     let cryptos = myJson["data"];
-    return cryptos;
+    // return cryptos;
+    console.log(cryptos);
     // makeCryptoObjects(cryptos);
-    debugger;
+    // make crypto data into
   })
 }
 
@@ -74,9 +75,7 @@ function getBusinesses(searchItem) {
   // })
   // debugger;
   let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
-  let matches = fetch('/spendables').then(function (resp) {
-    return resp.json()
-  })
+  let matches = fetch('/spendables').then((resp) => resp.json())
   console.log(matches);
 
   // if (matches.length > 0) {
