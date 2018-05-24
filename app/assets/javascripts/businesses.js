@@ -10,6 +10,7 @@ function getCryptoData() {
     let cryptos = myJson["data"];
     return cryptos;
     // makeCryptoObjects(cryptos);
+    debugger;
   })
 }
 
@@ -30,6 +31,8 @@ function attachBusinessListeners() {
     // debugger;
     renderReviews(businessId);
   })
+
+  getCryptoData();
 }
 
 function renderReviews(businessId) {
@@ -37,14 +40,20 @@ function renderReviews(businessId) {
   fetch(`/businesses/${businessId}/reviews.json`).then(function (resp) {
     return resp.json()
   }).then(function (myJson) {
+    // debugger;
     let reviews = myJson;
-    reviews.forEach(function (r) {
-      let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user, r.business, r.crypto);
-      // debugger;
-      reviewCount.push(review)
-      review.formatReview(reviewCount.length);
-      debugger;
-    })
+    if (reviews.length !== 0) {
+      reviews.forEach(function (r) {
+        let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user, r.business, r.crypto);
+        reviewCount.push(review)
+        review.formatReview(reviewCount.length);
+      })
+    } else if (clicker === 0){
+      $('.append-reviews').append(`
+        <h3 id="no-reviews">This business does not have any reviews.</h3>
+        `);
+      clicker++;
+    }
   })
 }
 
@@ -54,14 +63,16 @@ function getBusinesses(searchItem) {
   //     console.log(`${resp}`)
   //   })
   // let coins = $('#coins').find('option').map(c => c.value);
-  let cryptos = [];
-  fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
-    return resp.json();
-  }).then(function (myJson) {
-    cryptos.push(myJson["data"]);
-    return cryptos;
-    // makeCryptoObjects(cryptos);
-  })
+
+  // let cryptos = [];
+  // fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
+  //   return resp.json();
+  // }).then(function (myJson) {
+  //   cryptos.push(myJson["data"]);
+  //   return cryptos;
+  //   // makeCryptoObjects(cryptos);
+  // })
+  // debugger;
   let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
   let matches = fetch('/spendables').then(function (resp) {
     return resp.json()

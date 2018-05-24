@@ -1,4 +1,3 @@
-// let reviewCount = 0;
 let reviewClicker = 0;
 
 class Review {

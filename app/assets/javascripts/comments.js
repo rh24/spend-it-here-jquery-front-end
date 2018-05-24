@@ -58,8 +58,6 @@ $(document).ready(function () {
 // If you do not add e.preventDefault(), your js will not work!!
 
 function attachCommentListeners() {
-  console.log("hello")
-
   let $commentArea = document.getElementById('create-comment')
   let businessId = $('#comment-section').data("business-id");
   let reviewId = $('#comment-section').data("review-id");
@@ -68,6 +66,7 @@ function attachCommentListeners() {
 
   $('#load-comments').on('click', function (e) {
     e.preventDefault();
+    console.log('loading comments')
     Comment.prototype.loadAllComments(clicker);
     clicker++;
   });
