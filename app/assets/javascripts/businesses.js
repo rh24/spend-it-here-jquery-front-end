@@ -1,29 +1,49 @@
 $(document).ready(function () {
-  attachBusinessListeners();
+  let cryptoData = getCryptoData();
+  // attachBusinessListeners();
+  // I couldn't find an elegant way to execute these functions.
+  // Should I be doing this with closures?
 })
 
 // I tried to refactor getBusinesses to invoke this method when set to variable `cyryptos`, but it kept turning up undefined in the chrome console.
 function getCryptoData() {
-  fetch('https://api.coinmarketcap.com/v2/ticker/').then(function (resp) {
-    return resp.json();
-  }).then(function (myJson) {
-    let cryptos = myJson["data"];
-    return cryptos;
-    // console.log(cryptos);
-    // makeCryptoObjects(cryptos);
-    // make crypto data into...
-  })
-}
+  let cryptos;
+  fetch('https://api.coinmarketcap.com/v2/ticker/')
+  .then(resp => resp.json())
+  .then(myJson => cryptos = myJson["data"])
+  .then((cryptos) => attachBusinessListeners(cryptos));
+};
+// let cryptoData = (function () {
+//   let cryptos;
+//   fetch('https://api.coinmarketcap.com/v2/ticker/')
+//   .then(resp => resp.json())
+//   .then(myJson => cryptos = myJson["data"])
+//   // .then(() => console.log(cryptos))
+// });
 
+// debugger;
 function Business(id, name, priceRange, description, discountOffered, location, category, cryptos) {
 
 }
 
-function attachBusinessListeners() {
+function attachBusinessListeners(cryptos) {
+  // async function getCryptoData() {
+  //   let cryptos;
+  //   return fetch('https://api.coinmarketcap.com/v2/ticker/')
+  //   .then(resp => resp.json())
+  //   .then(myJson => cryptos = myJson["data"])
+  //   // .then(() => console.log(cryptos))
+  //     // debugger;
+  //   // return cryptos;
+  // }
+
+  // debugger;
   $('#filter').on('submit', function (e) {
     e.preventDefault;
+    // let cryptoData = getCryptoData();
     let searchItem = $('#selected-coin').val();
-    getBusinesses(searchItem);
+    getBusinesses(cryptos, searchItem)
+    // it's passed in!;
   })
 
   $('.see-reviews').on('click', function (e) {
@@ -32,8 +52,6 @@ function attachBusinessListeners() {
     // debugger;
     renderReviews(businessId);
   })
-
-  getCryptoData();
 }
 
 function renderReviews(businessId) {
@@ -58,20 +76,15 @@ function renderReviews(businessId) {
   })
 }
 
-function getBusinesses(searchItem) {
+function getBusinesses(cryptos, searchItem) {
   // $.get(`/spendables`, function (resp) {
   //     // return resp.json();
   //     console.log(`${resp}`)
   //   })
   // let coins = $('#coins').find('option').map(c => c.value);
-
-  let cryptos;
-  cryptos = getCryptoData()
-  debugger;
-  let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
-  let matches = fetch('/spendables').then((resp) => resp.json())
-  console.log(matches);
-
+  alert(`${searchItem}`)
+  // let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
+  // let matches = fetch('/spendables').then((resp) => resp.json())
   // if (matches.length > 0) {
   //   matches.forEach(function (businessName) {
   //     $('.results').html(`

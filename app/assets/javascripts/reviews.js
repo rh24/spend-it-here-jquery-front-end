@@ -17,7 +17,7 @@ class Review {
     if (reviewClicker < reviewCount) {
       $('.append-reviews').append(`
         <br><div class="container">
-        <h3>${this.title}</h3>
+        <h3><a href='/businesses/${this.business.id}/reviews/${this.id}'>${this.title}</a></h3>
         <p>${this.content}</p>
         // add option to See more...
         <p>${this.rating}<p>

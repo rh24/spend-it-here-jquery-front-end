@@ -15,6 +15,5 @@
 //= require popper
 //= require bootstrap
 //= require reviews
-//= require cryptos
 //= require businesses
 //= require comments

@@ -1,9 +1,10 @@
  // Make JS objects out of CMC API Data
  // https://coinmarketcap.com/api/
 
-// $(document).ready(function () {
-//   attachCryptoListeners();
-// });
+$(document).ready(function () {
+  // attachCryptoListeners();
+  getCryptoData();
+});
 
 function attachCryptoListeners() {
   /*
@@ -22,7 +23,8 @@ function getCryptoData() {
     return resp.json();
   }).then(function (myJson) {
     let cryptos = myJson["data"];
-    return cryptos;
+    console.log(cryptos)
+    // return cryptos;
     // makeCryptoObjects(cryptos);
   })
 }
@@ -44,34 +46,12 @@ function makeCryptoObjects(cryptos) {
   let crypto = new Crypto()
 }
 
-function addSymbolsToDatabase() {
-  
-}
-
 /*
-Sample Response:
-{
-    "data": [
-        {
-            "id": 1,
-            "name": "Bitcoin",
-            "symbol": "BTC",
-            "website_slug": "bitcoin"
-        },
-        {
-            "id": 2,
-            "name": "Litecoin",
-            "symbol": "LTC",
-            "website_slug": "litecoin"
-        },
-        ...
-    },
-    "metadata": {
-        "timestamp": 1525137187,
-        "num_cryptocurrencies": 1602,
-        "error": null
-    }
-]
-*/
+In the future instead of deleting db items, maybe I can try to make a PATCH request via AJAX...
 
-// Alternatively, I can create and hit my own API endpoint displaying coin data, but I would not be actively managing this data. Perhaps, it's better to rely on a site like CoinMarketCap.
+function addSymbolsToDatabase() {
+  $.ajax({
+    method: 'PATCH'
+  })
+}
+*/

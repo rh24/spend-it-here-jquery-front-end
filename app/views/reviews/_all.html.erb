@@ -12,8 +12,10 @@
         <% else %>
           <p><%= r.user.email %> does not recommend this business.</p>
         <% end %>
-        <label>User paid in</label>
-        <%= r.crypto.name %><br />
+        <% if r.crypto %>
+          <label>User paid in</label><strong>
+          <%= r.crypto.name %>.</strong><br>
+        <% end %>
       </li>
     <% end %>
   </ul>
