@@ -38,9 +38,8 @@ function renderReviews(businessId) {
   }).then(function (myJson) {
     let reviews = myJson;
     reviews.forEach(function (r) {
-      r.user
-      let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user.id, r.business.id, r.crypto.id);
-      debugger;
+      let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user, r.business, r.crypto);
+      // debugger;
       review.formatReview();
     })
   })
