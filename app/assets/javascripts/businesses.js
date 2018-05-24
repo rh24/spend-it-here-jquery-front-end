@@ -8,14 +8,14 @@ function getCryptoData() {
     return resp.json();
   }).then(function (myJson) {
     let cryptos = myJson["data"];
-    // return cryptos;
-    console.log(cryptos);
+    return cryptos;
+    // console.log(cryptos);
     // makeCryptoObjects(cryptos);
-    // make crypto data into
+    // make crypto data into...
   })
 }
 
-function Business(id, name, priceRange, description, locationId, categoryId, discountOffered) {
+function Business(id, name, priceRange, description, discountOffered, location, category, cryptos) {
 
 }
 
@@ -65,15 +65,9 @@ function getBusinesses(searchItem) {
   //   })
   // let coins = $('#coins').find('option').map(c => c.value);
 
-  // let cryptos = [];
-  // fetch('https://api.coinmarketcap.com/v2/listings/').then(function (resp) {
-  //   return resp.json();
-  // }).then(function (myJson) {
-  //   cryptos.push(myJson["data"]);
-  //   return cryptos;
-  //   // makeCryptoObjects(cryptos);
-  // })
-  // debugger;
+  let cryptos;
+  cryptos = getCryptoData()
+  debugger;
   let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
   let matches = fetch('/spendables').then((resp) => resp.json())
   console.log(matches);
