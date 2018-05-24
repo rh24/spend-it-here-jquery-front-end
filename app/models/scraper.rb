@@ -36,7 +36,7 @@ class Scraper
 
   def self.create_all_coin_instances
     scrape_coins[0..99].each do |coin_hash|
-      Crypto.create(name: coin_hash[:name])
+      Crypto.create(name: coin_hash[:name], symbol: coin_hash[:symbol])
     end
   end
 

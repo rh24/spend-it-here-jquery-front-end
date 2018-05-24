@@ -90,6 +90,7 @@ function getBusinesses(searchItem) {
   */
 }
 
+// Below function uses Crypto.order_by_name datalist
 function getCoins() {
   let fullList = $('#coins').find('option')
   let values = [];

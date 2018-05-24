@@ -44,6 +44,10 @@ function makeCryptoObjects(cryptos) {
   let crypto = new Crypto()
 }
 
+function addSymbolsToDatabase() {
+  
+}
+
 /*
 Sample Response:
 {
