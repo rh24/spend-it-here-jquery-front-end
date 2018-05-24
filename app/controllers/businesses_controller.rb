@@ -34,9 +34,17 @@ class BusinessesController < ApplicationController
   def index
     @businesses = Business.order_by_name.where(nil) # creates an anonymous scope. What does that mean?
     @businesses = Business.offer_discounts(params[:offer_discounts]) if params[:offer_discounts].present?
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @businesses }
+    end
   end
 
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @business }
+    end
   end
 
   def destroy
