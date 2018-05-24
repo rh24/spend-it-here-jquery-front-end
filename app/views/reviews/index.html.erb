@@ -1,4 +1,4 @@
-<% if !!@business %>
+  <% if !!@business %>
   <h1><%= @business.name %>'s Reviews</h1>
   <h2><%= link_to "[Leave a review]", new_biz_review_path(@business, @review) %></h2>
 
@@ -7,10 +7,12 @@
       <% @business.reviews.each do |r| %>
         <li>
           <h4><%= link_to "#{r.title}", biz_review_path(@business, r) %></h4>
-          <%= r.content %><br />
-          <%= display_recommendation r %><br />
-          <label>User paid in</label>
-          <%= r.crypto.name %>.<br />
+          <%= r.content %><br>
+          <%= display_recommendation r %><br><br>
+          <% if r.crypto %>
+            <label>User paid in</label><strong>
+            <%= r.crypto.name %>.</strong><br>
+          <% end %>
         </li>
       <% end %>
     </ul>

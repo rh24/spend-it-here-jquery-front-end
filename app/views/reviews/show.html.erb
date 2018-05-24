@@ -10,8 +10,9 @@
   <% else %>
     <p><%= @review.user.email %> does not recommend this business.</p>
   <% end %>
-
-  <p>User paid in <%= @review.crypto.name %>.</p>
+  <% if @review.crypto %>
+    <p>User paid in <%= @review.crypto.name %>.</p>
+  <% end %>
 </div><br />
 
 <%# render 'comments/new', :review => @review %>
