@@ -33,6 +33,7 @@ function attachBusinessListeners() {
 }
 
 function renderReviews(businessId) {
+  let reviewCount = [];
   fetch(`/businesses/${businessId}/reviews.json`).then(function (resp) {
     return resp.json()
   }).then(function (myJson) {
@@ -40,7 +41,9 @@ function renderReviews(businessId) {
     reviews.forEach(function (r) {
       let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user, r.business, r.crypto);
       // debugger;
-      review.formatReview();
+      reviewCount.push(review)
+      review.formatReview(reviewCount.length);
+      debugger;
     })
   })
 }

@@ -1,3 +1,4 @@
+// let reviewCount = 0;
 let reviewClicker = 0;
 
 class Review {
@@ -13,9 +14,8 @@ class Review {
   }
 
 // ask cernan for help to display recommendation.
-
-  formatReview() {
-    if (reviewClicker === 0) {
+  formatReview(reviewCount) {
+    if (reviewClicker < reviewCount) {
       $('.append-reviews').append(`
         <br><div class="container">
         <h3>${this.title}</h3>
