@@ -48,7 +48,7 @@
     <div>
       <%= f.text_area :content, :placeholder => "How was your experience?", :size => "48x18" %><br />
     </div>
-    <div>
+    <div class="container">
       <label>How would you rate your experience? </label>
       <%= f.collection_radio_buttons :rating, [[5], [4], [3], [2], [1]], :first, :last %>
     </div>
@@ -56,7 +56,7 @@
       <label>Which cryptocurrency did you pay in?</label>
       <%= f.collection_select :crypto_id, Crypto.order_by_name, :id, :name, include_blank: true %><br />
     </div>
-    <div>
+    <div >
       <%= f.check_box :would_recommend, :checked => true %>
       <%= label :would_recommend, "Check, if you'd recommend this place to a friend." %>
     </div>

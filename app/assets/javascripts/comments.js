@@ -1,5 +1,6 @@
 let id = 1;
 let clicker = 0;
+let errorClicker = 0;
 
 function Comment(content, user, review) {
   this.content = content;
@@ -30,6 +31,7 @@ Comment.prototype.loadAllComments = function (clicker) {
         respChunks.push(subchunk);
       }
       for (let el of respChunks[clicker]) {
+        // debugger;
         $.get(`/users/${el["user_id"]}.json`, function (data) {
           user = data["email"];
           html = `
@@ -66,7 +68,6 @@ function attachCommentListeners() {
 
   $('#load-comments').on('click', function (e) {
     e.preventDefault();
-    console.log('loading comments')
     Comment.prototype.loadAllComments(clicker);
     clicker++;
   });
@@ -91,7 +92,7 @@ function attachCommentListeners() {
       e.preventDefault();
       let values = $(this).serialize();
       let token = $('meta[name="csrf-token"]').attr('content');
-
+      // debugger;
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': token
@@ -104,13 +105,22 @@ function attachCommentListeners() {
         dataType: "json",
         data: values,
         success: function (resp) { //resp = {id: 71, content: "asdf", user_id: 1, review_id: 11, review: {…}}
-          let newComment = new Comment (resp["content"], resp["user"], resp["review"]);
-          return newComment;
+          if (resp) {
+            let newComment = new Comment (resp["content"], resp["user"], resp["review"]);
+            return newComment;
+          }
         },
         error: function () {
           alert('error');
         }
       }).done(function (data) {
+        if (!data && errorClicker === 0) {
+          $('#comment-section').append(`
+            <div class="alert alert-danger"><p>Must not be blank</p></div>
+            `)
+          errorClicker++
+        }
+
         $('#comment-section').append(`<div id="comment-${data["id"]}">
         <div class="content">
         <li>${data["content"]}</li>

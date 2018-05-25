@@ -2,7 +2,6 @@ $(document).ready(function () {
   let cryptoData = getCryptoData();
   // attachBusinessListeners();
   // I couldn't find an elegant way to execute these functions.
-  // Should I be doing this with closures?
 })
 
 function getCryptoData() {
