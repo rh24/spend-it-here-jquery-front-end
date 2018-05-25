@@ -113,7 +113,6 @@ function renderReviews(businessId) {
     let reviews = myJson;
     if (reviews.length !== 0) {
       reviews.forEach(function (r) {
-        // debugger
         let review = new Review(r.id, r.title, r.rating, r.content, r.would_recommend, r.user, r.business, r.crypto);
         reviewCount.push(review)
         review.formatReview(reviewCount.length);

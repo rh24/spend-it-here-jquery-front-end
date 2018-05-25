@@ -12,21 +12,26 @@ class Review {
     this.crypto = crypto;
   }
 
-// ask cernan for help to display recommendation.
   formatReview(reviewCount) {
     if (reviewClicker < reviewCount) {
       $('.append-reviews').append(`
         ${this.displayRating(this.rating)}<br>
         <br><div class="container">
         <h3><a href='/businesses/${this.business.id}/reviews/${this.id}'>${this.title}</a></h3>
-        <p>${this.displayContent(this.content, 30)}</p>
-        <strong>// add option to See more... if over n characters</strong><br>
+        <p>${this.displayContent(this, 30)}</p>
         <p>${this.displayRecommendation(this)}</p><br>
         <p>posted by: ${this.user.email}</p>
         </div>
         `)
       reviewClicker++;
     }
+
+    $('.js-more').on('click', function (e) {
+      e.preventDefault;
+      let reviewId = e.target.id
+      let businessId = e.target.getAttribute("data-business-id")
+      $.get(`/businesses/${businessId}/reviews/${reviewId}.json`)
+    })
   }
 
   displayRecommendation(review) {
@@ -46,13 +51,13 @@ class Review {
     return html;
   }
 
-  displayContent(content, maxLength) {
+  displayContent(review, maxLength) {
     // optional `separator` argument = ' ' if you desire to show full length words only + '...'
     // last return statement would be `return content.substr(0, content.lastIndexOf(separator, maxLength))``;
-    if (content.length <= maxLength) {
-      return content;
+    if (review.content.length <= maxLength) {
+      return review.content;
     }
 
-    return content.substr(0, maxLength) + '...<a href="#">See More</a>'
+    return review.content.substr(0, maxLength) + `...<a href="#" class="js-more" data-business-id="${review.business.id}" id="${review.id}">See More</a>`
   }
 }
