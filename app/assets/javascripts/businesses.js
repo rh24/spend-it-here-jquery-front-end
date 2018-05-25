@@ -78,7 +78,6 @@ function Business(id, name, priceRange, description, discountOffered, location, 
 function attachBusinessListeners(cryptos) {
   $('#filter').on('submit', function (e) {
     e.preventDefault;
-    // let cryptoData = getCryptoData();
     let searchItem = $('#selected-coin').val();
     getBusinesses(cryptos, searchItem)
     // it's passed in!;
@@ -102,7 +101,6 @@ function attachBusinessListeners(cryptos) {
   $('.see-reviews').on('click', function (e) {
     e.preventDefault();
     let businessId = $(this).data('id')
-    // debugger;
     renderReviews(businessId);
   })
 }
@@ -141,6 +139,11 @@ function getBusinesses(cryptos, searchItem) {
     return symbolsNames.includes(searchItem.toLowerCase())
   }();
 
+  // let matches =
+  //   fetch(`/spendables`)
+  //     .then(resp => resp.json())
+  //     .then(myJson => console.log(myJson));
+
   if (!validSearch) {
     // alert('We found no matches.')
     $('.results').prepend(`
@@ -148,34 +151,29 @@ function getBusinesses(cryptos, searchItem) {
       `)
       // how do I make this stay on page?;
   } else {
-    alert(searchItem)
+    scanForMatches();
+    // let matches =
+    //   fetch(`/spendables`)
+    //     .then(resp => resp.json())
+    //     .then(myJson => myMatches = myJson)
+    //     .then(() => console.log(myMatches))
+
+    // $.get('/spendables', {}, function (data) {
+    //   debugger;
+    //   console.log(data);
+    // })
+
     // IF match is found, scan '/spendables' for business.cryptos
     // then return businesses with matching result
   }
 
-  // fetch(`/spendables`)
-  //   .then(resp => resp.json())
-  //   .then(myJson => console.log(myJson))
-  // let coins = $('#coins').find('option').map(c => c.value);
-  // alert(`${searchItem}`)
-  // let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
-  // let matches = fetch('/spendables').then((resp) => resp.json())
-  // if (matches.length > 0) {
-  //   matches.forEach(function (businessName) {
-  //     $('.results').html(`
-  //       <li><%= link_to "#{b.name}", biz_path(b) %></li>
-  //       <li><a href="/businesses/",
-  //       `)
-  //   })
-  // } else {
-  //   alert("We found no matches.");
-  // }
-  /* Change to .append(`
-    <div class="alert">
-    <li>We found no matches.</li>
-    </div>
-  `)
-  */
+  function scanForMatches() {
+    // alert('hi')
+    $.get('/spendables', {}, function (data) {
+      debugger;
+      console.log(data);
+    })
+  }
 }
 
 // Below function uses Crypto.order_by_name datalist
