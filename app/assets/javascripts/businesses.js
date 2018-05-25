@@ -84,6 +84,21 @@ function attachBusinessListeners(cryptos) {
     // it's passed in!;
   })
 
+/* I want to figure out how to execute the search after the user stops
+  (function () {
+    let timer = null;
+    let searchItem = $('#selected-coin').val();
+
+    $('#selected-coin').on('keyup', function (e) {
+      timer = setTimeout(getBusinesses(cryptos, searchItem), 1000);
+    });
+
+    $('#selected-coin').on('keydown', function(e) {
+      clearTimeout(timer);
+    })
+  })
+*/
+
   $('.see-reviews').on('click', function (e) {
     e.preventDefault();
     let businessId = $(this).data('id')
@@ -114,9 +129,10 @@ function renderReviews(businessId) {
 }
 
 function getBusinesses(cryptos, searchItem) {
-  //reduce cryptos to name and symbol
+  //Alternativley, reduce cryptos to name and symbol.
   //https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6/38750895
   // const attributes = ['name', 'symbol']
+
   let validSearch = function () {
     const symbolsNames = [];
     for (let keyInt in cryptos) {
@@ -126,7 +142,15 @@ function getBusinesses(cryptos, searchItem) {
   }();
 
   if (!validSearch) {
-    alert('we found no matches.')
+    // alert('We found no matches.')
+    $('.results').prepend(`
+      <div class="alert alert-danger">We found no matches.</div>
+      `)
+      // how do I make this stay on page?;
+  } else {
+    alert(searchItem)
+    // IF match is found, scan '/spendables' for business.cryptos
+    // then return businesses with matching result
   }
 
   // fetch(`/spendables`)
