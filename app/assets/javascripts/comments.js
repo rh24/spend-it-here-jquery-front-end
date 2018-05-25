@@ -90,7 +90,6 @@ function attachCommentListeners() {
     $('form').on('submit', function (e) {
       e.preventDefault();
       let values = $(this).serialize();
-      console.log(values)
       let token = $('meta[name="csrf-token"]').attr('content');
 
       $.ajaxSetup({
@@ -119,38 +118,17 @@ function attachCommentListeners() {
         </div>
         </div>
         `)
+
+        $('textarea').val('')
+        // dry up below listener into separate function? It's in two places in this file.
+        $('#load-comments').on('click', function (e) {
+          e.preventDefault;
+          $(`#comment-${data["id"]}`).remove()
+          // debugger;
+          Comment.prototype.loadAllComments(clicker)
+          clicker++
+        })
       });
     })// form doesn't exist until ajax loads it onto page
   }); //End of previous AJAX comment form
 } //End of attachCommentListeners()
-
-// Comment.prototype.formatComment = () => {
-//   let commentHTML = `
-//     ${this}.
-//   `
-//
-// }
-
-// function createComment() {
-//   let businessId = $('#comment-section').data("business-id");
-//   let reviewId = $('#comment-section').data("review-id");
-//   let content = $('.content').val();
-//   let userId = $('.user').data("id");
-//   // debugger;
-//
-//   let comment = new Comment (content, userId, reviewId);
-//
-//   $.ajax({
-//     method: 'post',
-//     url: `businesses/${businessId}/reviews/${reviewId}/comments`,
-//     data: { content: content, user_id: userId, review_id: reviewId }
-//   })
-//   $('#comment-section').append(`
-//     <br><div id="comment-${comment.id}">
-//     </div><br>
-//   `)
-// }
-
-// Comment.prototype.formatComment = function () {
-//   $('.content').html(`${this["content"]}`);
-// }
