@@ -19,7 +19,7 @@ class Review {
         ${this.displayRating(this.rating)}<br>
         <br><div class="container">
         <h3><a href='/businesses/${this.business.id}/reviews/${this.id}'>${this.title}</a></h3>
-        <p>${this.content}</p>
+        <p>${this.displayContent(this.content, 30)}</p>
         <strong>// add option to See more... if over n characters</strong><br>
         <p>${this.displayRecommendation(this)}</p><br>
         <p>posted by: ${this.user.email}</p>
@@ -46,8 +46,13 @@ class Review {
     return html;
   }
 
-  shortenContent(content, maxLength) {
+  displayContent(content, maxLength) {
     // optional `separator` argument = ' ' if you desire to show full length words only + '...'
+    // last return statement would be `return content.substr(0, content.lastIndexOf(separator, maxLength))``;
+    if (content.length <= maxLength) {
+      return content;
+    }
 
+    return content.substr(0, maxLength) + '...<a href="#">See More</a>'
   }
 }
