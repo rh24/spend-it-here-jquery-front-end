@@ -113,7 +113,8 @@ function renderReviews(businessId) {
     let reviews = myJson;
     if (reviews.length !== 0) {
       reviews.forEach(function (r) {
-        let review = new Review(r.id, r.title, r.rating, r.content, r.wouldRecommend, r.user, r.business, r.crypto);
+        // debugger
+        let review = new Review(r.id, r.title, r.rating, r.content, r.would_recommend, r.user, r.business, r.crypto);
         reviewCount.push(review)
         review.formatReview(reviewCount.length);
       })
@@ -141,11 +142,10 @@ function getBusinesses(cryptos, searchItem) {
 
   let scanForMatches = function () {
     // alert('hi')
-    let matches = [];
-    $.get('/spendables', {}, function (data) {
-      data.filter(spendable => spendable.crypto.name.toLowerCase() === searchItem || spendable.crypto.symbol.toLowerCase() === searchItem);
-    }) // this works in my console just fine.
-    return matches;
+    let matches = $.get('/spendables', {}, function (data) {
+          return data.filter(spendable => spendable.crypto.name.toLowerCase() === searchItem || spendable.crypto.symbol.toLowerCase() === searchItem);
+        }).responseJSON // this works in my console just fine.
+        debugger;
     // let matches =
     //   fetch(`/spendables`)
     //     .then(resp => resp.json())

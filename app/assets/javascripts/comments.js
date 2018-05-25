@@ -1,11 +1,11 @@
 let id = 1;
 let clicker = 0;
 
-function Comment(content, userId, reviewId) {
+function Comment(content, user, review) {
   this.content = content;
   this.id = id;
-  this.userId = userId;
-  this.reviewId = reviewId;
+  this.user = user;
+  this.review = review;
 
   id++;
 }
@@ -76,8 +76,8 @@ function attachCommentListeners() {
     let $commentArea = document.getElementById('create-comment')
     let businessId = $('#comment-section').data("business-id");
     let reviewId = $('#comment-section').data("review-id");
-    // let content = $('.content').val();
     let currentUserId = $('.user').data("id");
+
     if (!$commentArea) {
       $('#comment-section').append(`<form action="/businesses/${businessId}/reviews/${reviewId}/comments" id="comment-form" method="POST">
       <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
@@ -104,7 +104,7 @@ function attachCommentListeners() {
         dataType: "json",
         data: values,
         success: function (resp) { //resp = {id: 71, content: "asdf", user_id: 1, review_id: 11, review: {…}}
-          let newComment = new Comment (resp["content"], resp["user_id"], resp["review_id"]);
+          let newComment = new Comment (resp["content"], resp["user"], resp["review"]);
           return newComment;
         },
         error: function () {
@@ -122,10 +122,6 @@ function attachCommentListeners() {
     })// form doesn't exist until ajax loads it onto page
   }); //End of previous AJAX comment form
 } //End of attachCommentListeners()
-
-// <input type="hidden" name="businessId" value="${businessId}">
-// <input type="hidden" name="reviewId" value="${reviewId}">
-// <input type="hidden" name="userId" value="${userId}">
 
 // Comment.prototype.formatComment = () => {
 //   let commentHTML = `

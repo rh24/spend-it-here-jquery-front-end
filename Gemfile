@@ -41,6 +41,9 @@ gem 'nokogiri'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.1.1'
 gem 'sprockets-rails'
+gem 'glyphicons-rails'
+gem 'sass'
+gem 'bootstrap-sass'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

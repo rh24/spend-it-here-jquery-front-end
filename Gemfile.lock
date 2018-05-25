@@ -54,6 +54,9 @@ GEM
       autoprefixer-rails (>= 6.0.3)
       popper_js (>= 1.12.9, < 2)
       sass (>= 3.5.2)
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (10.0.1)
     case_transform (0.2)
@@ -86,6 +89,9 @@ GEM
     ffi (1.9.23)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    glyphicons-rails (0.1.2)
+      sass (~> 3.3)
+      sass-rails
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
@@ -250,10 +256,12 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bootstrap (~> 4.1.1)
+  bootstrap-sass
   byebug
   coffee-rails (~> 4.2)
   devise
   dotenv-rails
+  glyphicons-rails
   has_scope (~> 0.7.1)
   jbuilder (~> 2.5)
   jquery-rails
@@ -266,6 +274,7 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.5)
   rspec-rails
+  sass
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -277,4 +286,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.0
+   1.16.2

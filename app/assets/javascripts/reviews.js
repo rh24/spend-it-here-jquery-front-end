@@ -16,12 +16,12 @@ class Review {
   formatReview(reviewCount) {
     if (reviewClicker < reviewCount) {
       $('.append-reviews').append(`
+        ${this.displayRating(this.rating)}<br>
         <br><div class="container">
         <h3><a href='/businesses/${this.business.id}/reviews/${this.id}'>${this.title}</a></h3>
         <p>${this.content}</p>
-        <strong>// add option to See more... if over n characters</strong>
-        <p>${this.rating}<p>
-        <p>${this.displayRecommendation.bind(this)}</p>
+        <strong>// add option to See more... if over n characters</strong><br>
+        <p>${this.displayRecommendation(this)}</p><br>
         <p>posted by: ${this.user.email}</p>
         </div>
         `)
@@ -30,10 +30,24 @@ class Review {
   }
 
   displayRecommendation(review) {
+    // debugger;
     if (review.wouldRecommend) {
       return `${review.user.email} recommends this business.`
     }
 
     return `${review.user.email} doesn't recommend this business.`
+  }
+
+  displayRating(rating) {
+    let html = '';
+    for (let i = 0; i < rating; i++) {
+      html += `<span class="reviews"></span>`
+    }
+    return html;
+  }
+
+  shortenContent(content, maxLength) {
+    // optional `separator` argument = ' ' if you desire to show full length words only + '...'
+
   }
 }
