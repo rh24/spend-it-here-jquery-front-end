@@ -18,7 +18,7 @@ class Review {
         ${this.displayRating(this.rating)}<br>
         <br><div class="container">
         <h3><a href='/businesses/${this.business.id}/reviews/${this.id}'>${this.title}</a></h3>
-        <p>${this.displayContent(this, 30)}</p>
+        <p id="content">${this.displayContent(this, 30)}</p>
         <p>${this.displayRecommendation(this)}</p><br>
         <p>posted by: ${this.user.email}</p>
         </div>
@@ -26,11 +26,15 @@ class Review {
       reviewClicker++;
     }
 
-    $('.js-more').on('click', function (e) {
+
+    $(`#js-more-${this.id}`).on('click', function (e) {
       e.preventDefault;
-      let reviewId = e.target.id
+      let reviewId = e.target.getAttribute("data-review-id")
       let businessId = e.target.getAttribute("data-business-id")
-      $.get(`/businesses/${businessId}/reviews/${reviewId}.json`)
+      let fullContent = $.get(`/businesses/${businessId}/reviews/${reviewId}.json`, function (data) {
+        data["content"]
+      })
+      console.log(fullContent);
     })
   }
 
@@ -58,6 +62,6 @@ class Review {
       return review.content;
     }
 
-    return review.content.substr(0, maxLength) + `...<a href="#" class="js-more" data-business-id="${review.business.id}" id="${review.id}">See More</a>`
+    return review.content.substr(0, maxLength) + `...<a href="#" id="js-more-${review.id}" data-business-id="${review.business.id}" data-review-id="${review.id}">See More</a>`
   }
 }
