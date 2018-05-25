@@ -5,14 +5,63 @@ $(document).ready(function () {
   // Should I be doing this with closures?
 })
 
-// I tried to refactor getBusinesses to invoke this method when set to variable `cyryptos`, but it kept turning up undefined in the chrome console.
 function getCryptoData() {
   let cryptos;
   fetch('https://api.coinmarketcap.com/v2/ticker/')
   .then(resp => resp.json())
   .then(myJson => cryptos = myJson["data"])
   .then((cryptos) => attachBusinessListeners(cryptos));
-};
+}
+  /*
+  In the above function, cryptos is a nested object:
+
+  {
+    "1": {
+      "id": 1,
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "website_slug": "bitcoin",
+      "rank": 1,
+      "circulating_supply": 17052475.0,
+      "total_supply": 17052475.0,
+      "max_supply": 21000000.0,
+      "quotes": {
+        "USD": {
+          "price": 7568.0,
+          "volume_24h": 6192760000.0,
+          "market_cap": 129053130800.0,
+          "percent_change_1h": -0.45,
+          "percent_change_24h": -0.48,
+          "percent_change_7d": -7.61
+        }
+      },
+      "last_updated": 1527193773
+    },
+    "2": {
+      "id": 2,
+      "name": "Litecoin",
+      "symbol": "LTC",
+      "website_slug": "litecoin",
+      "rank": 6,
+      "circulating_supply": 56680048.0,
+      "total_supply": 56680048.0,
+      "max_supply": 84000000.0,
+      "quotes": {
+        "USD": {
+          "price": 123.102,
+          "volume_24h": 356512000.0,
+          "market_cap": 6977427281.0,
+          "percent_change_1h": -0.55,
+          "percent_change_24h": 1.9,
+          "percent_change_7d": -8.88
+        }
+      },
+      "last_updated": 1527193741
+    }
+    ...
+  }
+  */
+
 // let cryptoData = (function () {
 //   let cryptos;
 //   fetch('https://api.coinmarketcap.com/v2/ticker/')
@@ -27,17 +76,6 @@ function Business(id, name, priceRange, description, discountOffered, location, 
 }
 
 function attachBusinessListeners(cryptos) {
-  // async function getCryptoData() {
-  //   let cryptos;
-  //   return fetch('https://api.coinmarketcap.com/v2/ticker/')
-  //   .then(resp => resp.json())
-  //   .then(myJson => cryptos = myJson["data"])
-  //   // .then(() => console.log(cryptos))
-  //     // debugger;
-  //   // return cryptos;
-  // }
-
-  // debugger;
   $('#filter').on('submit', function (e) {
     e.preventDefault;
     // let cryptoData = getCryptoData();
@@ -59,7 +97,6 @@ function renderReviews(businessId) {
   fetch(`/businesses/${businessId}/reviews.json`).then(function (resp) {
     return resp.json()
   }).then(function (myJson) {
-    // debugger;
     let reviews = myJson;
     if (reviews.length !== 0) {
       reviews.forEach(function (r) {
@@ -77,12 +114,26 @@ function renderReviews(businessId) {
 }
 
 function getBusinesses(cryptos, searchItem) {
-  // $.get(`/spendables`, function (resp) {
-  //     // return resp.json();
-  //     console.log(`${resp}`)
-  //   })
+  //reduce cryptos to name and symbol
+  //https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6/38750895
+  // const attributes = ['name', 'symbol']
+  let validSearch = function () {
+    const symbolsNames = [];
+    for (let keyInt in cryptos) {
+      symbolsNames.push(cryptos[keyInt].name.toLowerCase(), cryptos[keyInt].symbol.toLowerCase())
+    }
+    return symbolsNames.includes(searchItem.toLowerCase())
+  }();
+
+  if (!validSearch) {
+    alert('we found no matches.')
+  }
+
+  // fetch(`/spendables`)
+  //   .then(resp => resp.json())
+  //   .then(myJson => console.log(myJson))
   // let coins = $('#coins').find('option').map(c => c.value);
-  alert(`${searchItem}`)
+  // alert(`${searchItem}`)
   // let validSearch = cryptos.filter(crypto => name.toLowerCase() === searchItem.toLowerCase());
   // let matches = fetch('/spendables').then((resp) => resp.json())
   // if (matches.length > 0) {

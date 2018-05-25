@@ -19,7 +19,7 @@ class Review {
         <br><div class="container">
         <h3><a href='/businesses/${this.business.id}/reviews/${this.id}'>${this.title}</a></h3>
         <p>${this.content}</p>
-        // add option to See more...
+        <strong>// add option to See more... if over n characters</strong>
         <p>${this.rating}<p>
         <p>${this.displayRecommendation.bind(this)}</p>
         <p>posted by: ${this.user.email}</p>
