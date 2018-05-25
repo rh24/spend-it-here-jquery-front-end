@@ -78,7 +78,7 @@ function Business(id, name, priceRange, description, discountOffered, location, 
 function attachBusinessListeners(cryptos) {
   $('#filter').on('submit', function (e) {
     e.preventDefault;
-    let searchItem = $('#selected-coin').val();
+    let searchItem = $('#selected-coin').val().toLowerCase();
     getBusinesses(cryptos, searchItem)
     // it's passed in!;
   })
@@ -136,22 +136,16 @@ function getBusinesses(cryptos, searchItem) {
     for (let keyInt in cryptos) {
       symbolsNames.push(cryptos[keyInt].name.toLowerCase(), cryptos[keyInt].symbol.toLowerCase())
     }
-    return symbolsNames.includes(searchItem.toLowerCase())
+    return symbolsNames.includes(searchItem)
   }();
 
-  // let matches =
-  //   fetch(`/spendables`)
-  //     .then(resp => resp.json())
-  //     .then(myJson => console.log(myJson));
-
-  if (!validSearch) {
-    // alert('We found no matches.')
-    $('.results').prepend(`
-      <div class="alert alert-danger">We found no matches.</div>
-      `)
-      // how do I make this stay on page?;
-  } else {
-    scanForMatches();
+  let scanForMatches = function () {
+    // alert('hi')
+    let matches = [];
+    $.get('/spendables', {}, function (data) {
+      data.filter(spendable => spendable.crypto.name.toLowerCase() === searchItem || spendable.crypto.symbol.toLowerCase() === searchItem);
+    }) // this works in my console just fine.
+    return matches;
     // let matches =
     //   fetch(`/spendables`)
     //     .then(resp => resp.json())
@@ -165,14 +159,17 @@ function getBusinesses(cryptos, searchItem) {
 
     // IF match is found, scan '/spendables' for business.cryptos
     // then return businesses with matching result
-  }
+  }();
 
-  function scanForMatches() {
-    // alert('hi')
-    $.get('/spendables', {}, function (data) {
-      debugger;
-      console.log(data);
-    })
+  if (!validSearch) {
+    // alert('We found no matches.')
+    $('.results').prepend(`
+      <div class="alert alert-danger">We found no matches.</div>
+      `)
+      // how do I make this stay on page?;
+  } else {
+    console.log(scanForMatches);
+    debugger;
   }
 }
 
