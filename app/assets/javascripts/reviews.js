@@ -34,7 +34,7 @@ class Review {
       let fullContent = $.get(`/businesses/${businessId}/reviews/${reviewId}.json`, function (data) {
         data["content"]
       })
-      console.log(fullContent);
+      console.log(fullContent); // need help replacing shortened content on page
     })
   }
 

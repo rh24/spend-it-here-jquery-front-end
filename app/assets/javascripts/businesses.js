@@ -141,20 +141,13 @@ function getBusinesses(cryptos, searchItem) {
 
   let scanForMatches = function () {
     // alert('hi')
-    let matches = $.get('/spendables', {}, function (data) {
-          return data.filter(spendable => spendable.crypto.name.toLowerCase() === searchItem || spendable.crypto.symbol.toLowerCase() === searchItem);
-        }).responseJSON // this works in my console just fine.
-        debugger;
-    // let matches =
-    //   fetch(`/spendables`)
-    //     .then(resp => resp.json())
-    //     .then(myJson => myMatches = myJson)
-    //     .then(() => console.log(myMatches))
-
-    // $.get('/spendables', {}, function (data) {
-    //   debugger;
-    //   console.log(data);
-    // })
+    let matches;
+    $.get('/spendables', function (data) {
+          // debugger
+          matches = data.filter(spendable => spendable.crypto.name.toLowerCase() === searchItem || spendable.crypto.symbol.toLowerCase() === searchItem);
+          // execute function that reduces to businesses
+            // append
+        })
 
     // IF match is found, scan '/spendables' for business.cryptos
     // then return businesses with matching result

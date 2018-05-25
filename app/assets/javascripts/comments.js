@@ -80,9 +80,9 @@ function attachCommentListeners() {
 
     if (!$commentArea) {
       $('#comment-section').append(`<form action="/businesses/${businessId}/reviews/${reviewId}/comments" id="comment-form" method="POST">
-      <textarea id="create-comment" name="content" placeholder="Your comment here..."></textarea>
-      <input type="hidden" name="user_id" value="${currentUserId}">
-      <input type="hidden" name="review_id" value="${reviewId}">
+      <textarea id="create-comment" name="comment[content]" placeholder="Your comment here..."></textarea>
+      <input type="hidden" name="comment[user_id]" value="${currentUserId}">
+      <input type="hidden" name="comment[review_id]" value="${reviewId}">
       <input type="submit" value="Submit"></input></form>`)
       $('#comment-btn').hide();
     }
@@ -90,6 +90,7 @@ function attachCommentListeners() {
     $('form').on('submit', function (e) {
       e.preventDefault();
       let values = $(this).serialize();
+      console.log(values)
       let token = $('meta[name="csrf-token"]').attr('content');
 
       $.ajaxSetup({
