@@ -31,10 +31,9 @@ class Review {
       e.preventDefault;
       let reviewId = e.target.getAttribute("data-review-id")
       let businessId = e.target.getAttribute("data-business-id")
-      let fullContent = $.get(`/businesses/${businessId}/reviews/${reviewId}.json`, function (data) {
-        data["content"]
+      $.get(`/businesses/${businessId}/reviews/${reviewId}.json`, function (data) {
+        $('#content').html(data["content"])
       })
-      console.log(fullContent); // need help replacing shortened content on page
     })
   }
 

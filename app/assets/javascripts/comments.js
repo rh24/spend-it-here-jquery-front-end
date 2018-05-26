@@ -92,7 +92,7 @@ function attachCommentListeners() {
       e.preventDefault();
       let values = $(this).serialize();
       let token = $('meta[name="csrf-token"]').attr('content');
-      // debugger;
+      
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': token
