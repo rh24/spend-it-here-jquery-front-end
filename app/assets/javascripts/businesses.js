@@ -164,7 +164,7 @@ function getBusinesses(cryptos, searchItem) {
   }
 }
 
-// Below function uses Crypto.order_by_name datalist
+// Below function uses Crypto.order_by_name datalist instead of the CMC API.
 function getCoins() {
   let fullList = $('#coins').find('option')
   let values = [];
@@ -176,7 +176,3 @@ function getCoins() {
 // debugger;
   return values;
 }
-//
-// newBusiness.protoptype.seeMore = () => {
-//
-// }

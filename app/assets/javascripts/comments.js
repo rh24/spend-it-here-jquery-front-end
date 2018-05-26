@@ -92,7 +92,7 @@ function attachCommentListeners() {
       e.preventDefault();
       let values = $(this).serialize();
       let token = $('meta[name="csrf-token"]').attr('content');
-      
+
       $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': token
@@ -116,7 +116,7 @@ function attachCommentListeners() {
       }).done(function (data) {
         if (!data && errorClicker === 0) {
           $('#comment-section').append(`
-            <div class="alert alert-danger"><p>Must not be blank</p></div>
+            <div id="comment-alert" class="alert alert-danger"><p>Must not be blank</p></div>
             `)
           errorClicker++
         }
@@ -130,6 +130,7 @@ function attachCommentListeners() {
         `)
 
         $('textarea').val('')
+        $(`#comment-alert`).remove()
         // dry up below listener into separate function? It's in two places in this file.
         $('#load-comments').on('click', function (e) {
           e.preventDefault;
