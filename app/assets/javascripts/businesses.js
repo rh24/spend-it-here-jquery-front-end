@@ -78,9 +78,9 @@ function attachBusinessListeners(cryptos) {
   $('#filter').on('submit', function (e) {
     e.preventDefault;
     let searchItem = $('#selected-coin').val().toLowerCase();
-    getBusinesses(cryptos, searchItem)
+    getBusinesses(cryptos, searchItem);
     // it's passed in!;
-  })
+  });
 
 /* I want to figure out how to execute the search after the user stops
   (function () {
@@ -101,7 +101,19 @@ function attachBusinessListeners(cryptos) {
     e.preventDefault();
     let businessId = $(this).data('id')
     renderReviews(businessId);
-  })
+  });
+
+  $('.see-cryptos').on('mouseover', function(e) {
+    // let business = e.target.getAttribute('data-id')
+    // Above yields same id, except in string form
+    $('#display-cryptos').html('')
+    let businessId = $(this).data('id')
+    $.get(`/businesses/${businessId}.json`, function (data) {
+      data["cryptos"].forEach(function (crypto) {
+        $('#display-cryptos').append(`<li>${crypto.name} - ${crypto.symbol}</li>`)
+      });
+    });
+  });
 }
 
 function renderReviews(businessId) {

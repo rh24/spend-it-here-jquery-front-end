@@ -9,14 +9,17 @@
 <div class="results">
   <ul>
     <% @businesses.each do |b| %>
-      <li><%= link_to "#{b.name}", biz_path(b) %></li>
+      <li><%= link_to "#{b.name}", biz_path(b), :class => 'see-cryptos', :data => { :id => b.id } %></li>
     <% end %>
   </ul>
 </div>
 
-<div class="filter-businesses">
-  <label>Filter by crypto: </label>
+<div id="display-cryptos" class="container float-right align-content-center">
+</div><br><br><br><br><br><br>
+
+<div class="filter-businesses d-block">
   <form id="filter">
+  <label>Filter by crypto: </label>
   <input id="selected-coin" type="text" list="coins">
   <datalist id="coins" multiple>
     <% Crypto.order_by_name.each do |crypto| %>

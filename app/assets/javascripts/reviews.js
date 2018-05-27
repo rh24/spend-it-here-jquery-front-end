@@ -22,19 +22,20 @@ class Review {
         <p>${this.displayRecommendation(this)}</p><br>
         <p>posted by: ${this.user.email}</p>
         </div>
-        `)
+        `);
       reviewClicker++;
     }
 
 
     $(`#js-more-${this.id}`).on('click', function (e) {
       e.preventDefault;
-      let reviewId = e.target.getAttribute("data-review-id")
-      let businessId = e.target.getAttribute("data-business-id")
+      let reviewId = e.target.getAttribute("data-review-id");
+      let businessId = e.target.getAttribute("data-business-id");
+      // what's $(this)?
       $.get(`/businesses/${businessId}/reviews/${reviewId}.json`, function (data) {
-        $('#content').html(data["content"])
-      })
-    })
+        $('#content').html(data["content"]);
+      });
+    });
   }
 
   displayRecommendation(review) {
@@ -61,6 +62,6 @@ class Review {
       return review.content;
     }
 
-    return review.content.substr(0, maxLength) + `...<a href="#" id="js-more-${review.id}" data-business-id="${review.business.id}" data-review-id="${review.id}">See More</a>`
+    return review.content.substr(0, maxLength) + `...<a href="#" id="js-more-${review.id}" data-business-id="${review.business.id}" data-review-id="${review.id}">See More</a>`;
   }
 }
