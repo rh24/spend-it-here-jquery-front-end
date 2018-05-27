@@ -6,7 +6,9 @@ This will be a community managed database. Users are free to upload new business
 
 Users will be able to filter businesses based on whether or not discounts/specials are being offered for those paying in crypto. This feature appears as a link in the navigation bar.
 
-Users may view their profiles to see a list of reviews they have left for listed businesses.
+Users may view their profiles to see a list of reviews they have left for listed businesses. Additionally, commenting functionality has been added via AJAX and jQuery on the front end. In the future, users will be able to dynamically filter businesses by cryptocurrencies accepted after typing into a search bar in the business index.
+
+Contributions are welcome! Fork and clone the repo, run `rake db:seed` and `rake db:migrate`. Run on a local server via `rails s`.
 
 ## Installation
 
